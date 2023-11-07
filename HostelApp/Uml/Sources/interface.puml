@@ -1,0 +1,92 @@
+@startuml
+
+' Интерфейсные классы
+
+class RoomForm
+{
+- Field RoomTypeField 
+- Field MinCapacityField
+- Field MaxCapacityField
+- Field OnePlaceBedNumberField
+- Field TwoPlaceBedNumberField
+- Field MinBathroomNumberField
+- Field MaxBathroomNumberField
+- Field MinAreaNumberField
+- Field MaxAreaNumberField
+- Field MinFloorNumberField
+- Field MaxFloorNumberField
+- Field MinBedroomNumberField
+- Field MaxBedroomNumberField
+
+- Grid RoomGrid
+- Grid BedroomGrid
+- Grid BedGrid
+- Grid AccomodationGrid
+
+- Button CreateRoomButton
+- Button EditRoomButton
+- Button DeleteRoomButton
+
+- Button CreateBedroomButton
+- Button EditBedroomButton
+- Button DeleteBedroomButton
+
+- Button CreateBedButton
+- Button EditBedButton
+- Button DeleteBedButton
+
+- Button CreateAccomodationButton
+- Button DeleteAccomodationButton
+
+- Button CustomersButton
+
+- void getRequiredRooms()
+}
+
+class CustomersForm{
+- Grid CustomerGrid
+
+- Field NameField
+- Field BirthdayField
+
+- Button EditButton 
+- Button CreateButton
+- Button RemoveButton
+}
+
+class CreateAccomodationForm{
+- DateField FromDateField
+- DateField ToDateField
+
+- IntField CustomerIdField
+- StringField CustomerNameField
+
+- Button CreateAccomodationButton
+- Button CreateCustomerButton
+
+- createAccomodation()
+}
+
+class EditEntityForm{
+- Object entity
+
+- Button SaveButton
+
+- saveEntity()
+
++ new(Object)
++ new()
+}
+
+RoomForm ..> CreateAccomodationForm
+RoomForm ..> EditEntityForm
+RoomForm ..> HostelDbContext
+RoomForm ..> CustomersForm
+CustomersForm ..> HostelDbContext
+EditEntityForm ..> HostelDbContext
+CreateAccomodationForm ..> HostelDbContext
+
+RoomForm ..> RequirementSetBuilder
+RoomForm ..> RequirementRoomProvider
+
+@enduml

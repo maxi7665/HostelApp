@@ -1,0 +1,41 @@
+@startuml
+
+' Предметная область
+
+class Room{
++ int Id
++ int Number
++ string Name
++ RoomType Type
++ int BathroomsCount
++ int Floor
++ double Area
+}
+
+class Bed{
++ int Id
++ int BedroomId
++ int Capacity
+}
+
+class Bedroom{
++ int Id
++ int RoomId
++ double Area
+}
+
+class Customer {
++ int Id
++ int FullName
++ Date Birthday
+}
+
+class Accomodation{
++ int Id
++ Date FromDate
++ Date ToDate
++ int RoomId
++ int CustomerId
+}
+
+@enduml

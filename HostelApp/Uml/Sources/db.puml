@@ -1,0 +1,62 @@
+@startuml
+
+' База данных
+
+class BaseDbContext{
+- string _databaseFullFileName
+
+# new()
+
++ void setDatabaseFullFileName(string)
++ string getDatabaseFullFileName()
++ void selectDatabaseFile()
+
++ Room[] getRooms()
++ Room getRoom(int)
++ void addRoom(Room)
++ void updateRoom(Room)
++ void deleteRoom(int)
+
++ Accomodation[] getAccomodations()
++ Accomodation[] getAccomodation(int)
++ void addAccomodation(Accomodation)
++ void updateAccomodation(Accomodation)
++ void deleteAccomodation(int)
+
++ Bedroom[] getBedrooms()
++ Bedroom[] getRoomBedrooms(int)
++ Bedroom getBedroom()
++ void addBedroom(Bedroom)
++ void updateBedroom(Bedroom)
++ void deleteBedroom(int)
+
++ Bed[] getBeds()
++ Bed[] getBedroomBeds(int)
++ Bed getBed(int)
++ void addBed(Bed)
++ void updateBed(Bed)
++ void deleteBed(int)
+
++ Customer[] getCustomers()
++ Customer getCustomer(int)
++ void addCustomer(Customer)
++ void updateCustomer(Customer)
++ void deleteCustomer(int)
+
++ void clearDatabase()
+}
+
+class HostelDbContext extends BaseDbContext{
+- {static} HostelDbContext _instance
+
+# new()
+
++ {static} HostelDbContext getInstance()
+
++ Rooms[] getVacantRooms(Date, Date)
++ Accomodation createRoomAccomodation(int, Date, Date)
++ Accomodation getRoomAccomodationOnDate(int, Date)
++ boolean isRoomVacantOnDate(int, Date)
+}
+
+@enduml

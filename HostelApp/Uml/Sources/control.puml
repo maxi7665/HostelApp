@@ -1,0 +1,115 @@
+@startuml
+
+' ”правл€ющие классы
+
+interface IRequirement{
++ boolean checkRoom(Room)
+}
+
+class CapacityRequirement implements IRequirement{
+- int minCapacity
+- int maxCapacity
++ int getMinCapacity()
++ void setMinCapacity(int)
++ int getMaxCapacity()
++ void setMaxCapacity(int)
+
++ boolean checkRoom(Room)
+}
+
+class RoomTypeRequirement implements IRequirement{
+- RoomType[] roomTypes
++ RoomType[] getRoomTypes()
++ void setRoomTypes(RoomType[])
+
++ boolean checkRoom(Room)
+}
+
+class BedRequirement implements IRequirement{
+- int bedCount
+- int bedCapacity
++ int getBedCount()
++ void setBedCount(int)
++ int getBedCapacity()
++ void setBedCapacity(int)
+
++ boolean checkRoom(Room)
+}
+
+class BedroomRequirement implements IRequirement{
+- int minBedroomNumber
+- int maxBedroomNumber
++ int getMaxBedroomNumber()
++ void setMaxBedroomNumber(int)
++ int getMinBedroomNumber()
++ void setMinBedroomNumber(int)
+
++ boolean checkRoom(Room)
+}
+
+class BathroomRequirement implements IRequirement{
+- int minBathroomNumber
+- int maxBathroomNumber
++ int getMaxBathroomNumber()
++ void setMaxBathroomNumber(int)
++ int getMinBathroomNumber()
++ void setMinBathroomNumber(int)
+
++ boolean checkRoom(Room)
+}
+
+class FloorNumberRequirement implements IRequirement{
+- int minFloorNumber
+- int maxFloorNumber
++ int getMinFloorNumber()
++ void setMinFloorNumber(int)
++ int getMaxFloorNumber()
++ void setMaxFloorNumber(int)
+
++ boolean checkRoom(Room)
+}
+
+class AreaRequirement implements IRequirement{
+- double minArea
+- double maxArea
++ double getMinArea()
++ void setMinArea(double)
++ double getMaxArea()
++ void setMaxArea(double)
+
++ boolean checkRoom(Room)
+}
+
+class RequirementSet {
+- IRequirement[] requirements
++ setRequirements(IRequirement[])
++ IRequirement[] getRequirements()
++ checkRoom(Room)
+}
+
+class RequirementSetBuilder {
++ void addCapacityReqiurement(int, int)
++ void addRoomTypeReqiurement(RoomType[])
++ void addBedRequirement(int, int)
++ void addFloorNumberRequirement(int, int)
++ void addAreaRequirement(double, double)
++ void addBedroomRequirement(int, int)
++ void addBathroomRequrement(int, int)
++ RequirementSet buildRequirementSet()
+}
+
+class RequirementRoomProvider{
+- RequirementSet requirements
+
++ new(RequirementSet )
+
++ Room[] getRooms()
++ Room[] getVacantRooms(Date, Date)
+}
+
+RequirementSet o-- IRequirement
+RequirementRoomProvider o-- RequirementSet 
+RequirementRoomProvider o-- HostelDbContext
+RequirementSetBuilder ..> RequirementSet 
+
+@enduml
