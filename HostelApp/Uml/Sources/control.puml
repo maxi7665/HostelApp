@@ -88,20 +88,20 @@ class RequirementSet {
 }
 
 class RequirementSetBuilder {
-+ void addCapacityReqiurement(int, int)
-+ void addRoomTypeReqiurement(RoomType[])
-+ void addBedRequirement(int, int)
-+ void addFloorNumberRequirement(int, int)
-+ void addAreaRequirement(double, double)
-+ void addBedroomRequirement(int, int)
-+ void addBathroomRequrement(int, int)
++ RequirementSetBuilder addCapacityReqiurement(int, int)
++ RequirementSetBuilder addRoomTypeReqiurement(RoomType[])
++ RequirementSetBuilder addBedRequirement(int, int)
++ RequirementSetBuilder addFloorNumberRequirement(int, int)
++ RequirementSetBuilder addAreaRequirement(double, double)
++ RequirementSetBuilder addBedroomRequirement(int, int)
++ RequirementSetBuilder addBathroomRequrement(int, int)
 + RequirementSet buildRequirementSet()
 }
 
 class RequirementRoomProvider{
 - RequirementSet requirements
 
-+ new(RequirementSet )
++ new(RequirementSet)
 
 + Room[] getRooms()
 + Room[] getVacantRooms(Date, Date)

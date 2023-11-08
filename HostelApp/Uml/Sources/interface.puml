@@ -40,6 +40,8 @@ class RoomForm
 
 - Button CustomersButton
 
+- Button ApplyFiltersButton
+
 - void getRequiredRooms()
 }
 
