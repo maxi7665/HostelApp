@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HostelApp.Entities.Codes;
 
 namespace HostelApp.Entities
 {
-    internal class Room
+    public class Room : Entity
     {
+        public int Number { get; set; }
+
+        public string Name { get; set; } = string.Empty;
+
+        public RoomType RoomType { get; set; }
+
+        public int BathroomsCount { get; set; }
+
+        public int Floor { get; set; }
+
+        public double Area { get; set; }
     }
 }
