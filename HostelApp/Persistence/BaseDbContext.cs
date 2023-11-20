@@ -3,9 +3,9 @@ using System.Text.Json;
 
 namespace HostelApp.Persistence
 {
-    public class BaseDbContext
+    public partial class BaseDbContext
     {
-        private string _databaseFullFileName = string.Empty;
+        private string _databaseFullFileName = string.Empty;      
 
         public void SetDatabaseFullFileName(string databaseFullFileName)
         {
@@ -41,15 +41,23 @@ namespace HostelApp.Persistence
 
         private async Task<RootScheme> FetchData()
         {
-            using var fileStream = new FileStream(_databaseFullFileName, FileMode.Open);
+            if (scheme == null)
+            {
+                using var fileStream = new FileStream(_databaseFullFileName, FileMode.Open);
 
-            RootScheme scheme = await JsonSerializer.DeserializeAsync<RootScheme>(fileStream)
-                ?? throw new NullReferenceException();
+                scheme = await JsonSerializer.DeserializeAsync<RootScheme>(fileStream)
+                    ?? throw new NullReferenceException();
+            }
 
             return scheme;
         }
 
-        private async Task SaveData(RootScheme scheme)
+        public async Task SaveChanges()
+        {
+            await SaveData();
+        }
+
+        private async Task SaveData()
         {
             using var fileStream = new FileStream(
                 _databaseFullFileName,
@@ -85,8 +93,6 @@ namespace HostelApp.Persistence
                     prop.SetValue(scheme, entities);
                 }
             }
-
-            await SaveData(scheme);
         }
 
         private async Task<T?> GetEntity<T>(int id) where T : Entity
@@ -121,16 +127,61 @@ namespace HostelApp.Persistence
         {
             var entities = await GetEntities<T>();
 
-            var existing = entities.Where(e => e.Id == entity.Id).FirstOrDefault();
-
-            if (existing != null)
+            if (entity.Id != 0)
             {
-                throw new ApplicationException("Duplicate key");
+                var existing = entities.Where(e => e.Id == entity.Id).FirstOrDefault();
+
+                if (existing != null)
+                {
+                    throw new ApplicationException("Duplicate key");
+                }
             }
+            else
+            {
+                entity.Id = (await GetEntities<T>()).MaxBy(e => e.Id)?.Id ?? 0 + 1;
+            }            
 
             entities.Add(entity);
 
             await UpdateEntities(entities);
+        }
+
+        private async Task DeleteEntity<T>(int id) where T : Entity
+        {
+            var scheme = await FetchData();
+
+            foreach (var prop in scheme.GetType().GetProperties())
+            {
+                if (prop.PropertyType == typeof(List<T>))
+                {
+                    var entities = prop.GetValue(scheme) as List<T> 
+                        ?? throw new NullReferenceException();
+
+                    var removed = entities.RemoveAll(e => e.Id == id);
+
+                    if (removed == 0)
+                    {
+                        throw new ApplicationException("Can't remove");
+                    }
+                }
+            }
+        }
+
+        public WorkingSession BeginSession() => new WorkingSession(this);
+
+        public class WorkingSession : IDisposable
+        {
+            private readonly BaseDbContext _baseDbContext;
+
+            public WorkingSession(BaseDbContext baseDbContext)
+            {
+                this._baseDbContext = baseDbContext;
+            }
+
+            public void Dispose()
+            {
+                _baseDbContext.SaveChanges().Wait();
+            }
         }
     }
 }
