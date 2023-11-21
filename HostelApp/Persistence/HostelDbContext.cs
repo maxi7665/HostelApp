@@ -29,9 +29,9 @@ namespace HostelApp.Persistence
             var clearFromDate = fromDate.Date;
             var clearToDate = toDate.Date;
 
-            var rooms = await GetRooms();
+            var rooms = await GetRoomsAsync();
 
-            var accomodations = (await GetAccomodations())
+            var accomodations = (await GetAccomodationsAsync())
                 .Where(acc =>
             {
                 return acc.FromDate > toDate || acc.ToDate <= fromDate;
@@ -64,7 +64,7 @@ namespace HostelApp.Persistence
                 throw new ApplicationException("Room is not vacant");
             }
 
-            await AddAccomodation(new Accomodation()
+            await AddAccomodationAsync(new Accomodation()
             {
                 CustomerId = customerId,
                 FromDate = clearFromDate,
@@ -82,7 +82,7 @@ namespace HostelApp.Persistence
         {
             var clearOnDate = onDate.Date;
 
-            var accomodation = (await GetAccomodations()).Where(acc =>
+            var accomodation = (await GetAccomodationsAsync()).Where(acc =>
             {
                 return acc.RoomId == roomId
                     && acc.FromDate <= onDate

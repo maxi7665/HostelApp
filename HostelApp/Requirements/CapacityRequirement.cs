@@ -15,9 +15,9 @@ namespace HostelApp.Requirements
 
             var capacity = 0;
 
-            foreach (var bedroom in await context.GetRoomBedrooms(room.Id))
+            foreach (var bedroom in await context.GetRoomBedroomsAsync(room.Id))
             {
-                foreach (var bed in await context.GetBedroomBeds(bedroom.Id))
+                foreach (var bed in await context.GetBedroomBedsAsync(bedroom.Id))
                 {
                     capacity += bed.Capacity;
                 }

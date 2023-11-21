@@ -5,7 +5,9 @@ namespace HostelApp.Persistence
 {
     public partial class BaseDbContext
     {
-        private string _databaseFullFileName = string.Empty;      
+        private string _databaseFullFileName = string.Empty;
+
+        private RootScheme? _scheme;
 
         public void SetDatabaseFullFileName(string databaseFullFileName)
         {
@@ -30,26 +32,34 @@ namespace HostelApp.Persistence
             await InitDatabase();
         }
 
-        private async Task InitDatabase()
+        private Task InitDatabase()
         {
             var data = new RootScheme();
 
             using var fileStream = new FileStream(_databaseFullFileName, FileMode.Create);
 
-            await JsonSerializer.SerializeAsync(fileStream, data);
+            JsonSerializer.Serialize(fileStream, data);
+
+            return Task.CompletedTask;
         }
 
         private async Task<RootScheme> FetchData()
         {
-            if (scheme == null)
+            if (_scheme == null)
             {
+                if (!File.Exists(_databaseFullFileName)
+                    || new FileInfo(_databaseFullFileName).Length == 0)
+                {
+                    await InitDatabase();
+                }
+
                 using var fileStream = new FileStream(_databaseFullFileName, FileMode.Open);
 
-                scheme = await JsonSerializer.DeserializeAsync<RootScheme>(fileStream)
+                _scheme = JsonSerializer.Deserialize<RootScheme>(fileStream)
                     ?? throw new NullReferenceException();
             }
 
-            return scheme;
+            return _scheme;
         }
 
         public async Task SaveChanges()
@@ -57,14 +67,16 @@ namespace HostelApp.Persistence
             await SaveData();
         }
 
-        private async Task SaveData()
+        private Task SaveData()
         {
             using var fileStream = new FileStream(
                 _databaseFullFileName,
                 FileMode.Open,
                 FileAccess.Write);
 
-            await JsonSerializer.SerializeAsync(fileStream, scheme);
+            JsonSerializer.Serialize(fileStream, _scheme);
+
+            return Task.CompletedTask;
         }
 
         private async Task<List<T>> GetEntities<T>() where T : Entity
@@ -138,7 +150,11 @@ namespace HostelApp.Persistence
             }
             else
             {
-                entity.Id = (await GetEntities<T>()).MaxBy(e => e.Id)?.Id ?? 0 + 1;
+                var data = await GetEntities<T>();
+
+                var lastEntity = data.MaxBy(e => e.Id);
+
+                entity.Id = (lastEntity?.Id ?? 0) + 1;
             }            
 
             entities.Add(entity);

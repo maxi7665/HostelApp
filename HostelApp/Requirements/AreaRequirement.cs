@@ -13,7 +13,7 @@ namespace HostelApp.Requirements
         {
             var context = HostelDbContext.GetInstance();
             
-            var area = (await context.GetRoomBedrooms(room.Id)).Sum(x => x.Area);
+            var area = (await context.GetRoomBedroomsAsync(room.Id)).Sum(x => x.Area);
 
             return area >= MinArea
                 && area <= MaxArea

@@ -13,7 +13,7 @@ namespace HostelApp.Requirements
         {
             var context = HostelDbContext.GetInstance();
 
-            var bedroomCount = (await context.GetRoomBedrooms(room.Id)).Count;
+            var bedroomCount = (await context.GetRoomBedroomsAsync(room.Id)).Count;
 
             return bedroomCount >= MinBedroomNumber
                 && (bedroomCount <= MaxBedroomNumber

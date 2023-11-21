@@ -13,13 +13,13 @@ namespace HostelApp.Requirements
         {
             var context = HostelDbContext.GetInstance();
 
-            var beds = (await context.GetRoomBedrooms(room.Id))
+            var beds = (await context.GetRoomBedroomsAsync(room.Id))
                 .Aggregate(
                     new List<Bed>(),
                     (list, bedroom) =>
                     {
                         list.AddRange(context
-                            .GetBedroomBeds(bedroom.Id)
+                            .GetBedroomBedsAsync(bedroom.Id)
                             .GetAwaiter()
                             .GetResult());
 
