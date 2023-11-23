@@ -38,7 +38,7 @@ namespace HostelApp.Extensions
             {
                 // 20.xx - 100.xx
                 Area = (double)(int)(((random.NextDouble() * 80) + 20) * 100) / 100,
-                RoomType = (Entities.Codes.RoomType)random.Next(1, 4),
+                RoomType = (Entities.Codes.RoomType)random.Next(1, 5),
                 BathroomsCount = random.Next(1, 3),
                 Floor = random.Next(1, 15)
             };

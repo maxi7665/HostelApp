@@ -2,10 +2,10 @@
 {
     public enum RoomType
     {
-        None = 0,
-        Econom,
-        Apartment,
-        Business,
-        Luxury
+        Все = 0,
+        Стандарт,
+        Апартаменты,
+        Бизнес,
+        Люкс
     }
 }
