@@ -439,6 +439,7 @@
             monthCalendar1.Name = "monthCalendar1";
             monthCalendar1.TabIndex = 1;
             monthCalendar1.DateChanged += monthCalendar1_DateChanged;
+            monthCalendar1.DateSelected += monthCalendar1_DateChanged;
             // 
             // IsVacantField
             // 

@@ -72,7 +72,7 @@ namespace HostelApp
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
-
+            FilterChanged(sender, e);
         }
 
         private void RoomGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
