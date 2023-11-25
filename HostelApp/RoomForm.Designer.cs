@@ -169,7 +169,7 @@
             // 
             // OnePlaceBedNumberField
             // 
-            OnePlaceBedNumberField.Location = new Point(268, 21);
+            OnePlaceBedNumberField.Location = new Point(273, 21);
             OnePlaceBedNumberField.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             OnePlaceBedNumberField.Name = "OnePlaceBedNumberField";
             OnePlaceBedNumberField.Size = new Size(47, 23);
@@ -178,7 +178,7 @@
             // 
             // TwoPlaceBedNumberField
             // 
-            TwoPlaceBedNumberField.Location = new Point(268, 50);
+            TwoPlaceBedNumberField.Location = new Point(272, 50);
             TwoPlaceBedNumberField.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             TwoPlaceBedNumberField.Name = "TwoPlaceBedNumberField";
             TwoPlaceBedNumberField.Size = new Size(47, 23);
@@ -424,6 +424,7 @@
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(monthCalendar1);
             panel1.Controls.Add(IsVacantField);
@@ -453,6 +454,7 @@
             // 
             // TabControl
             // 
+            TabControl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             TabControl.Controls.Add(RoomTab);
             TabControl.Controls.Add(BedroomTab);
             TabControl.Controls.Add(BedTab);
