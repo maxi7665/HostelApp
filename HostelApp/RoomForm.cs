@@ -13,7 +13,7 @@ namespace HostelApp
             InitializeComponent();
         }
 
-        private async Task ExecuteQuery()
+        private async Task ExecuteRoomQuery()
         {
             var requirementSet = new RequirementSetBuilder()
                 .AddRoomTypeRequirement(
@@ -21,34 +21,29 @@ namespace HostelApp
                 .AddFloorNumberRequirement(
                     (int)MinFloorNumberField.Value,
                     (int)MaxFloorNumberField.Value)
-                
                 .BuildRequirementSet();
 
+            var roomProvider = new RequirementRoomProvider(requirementSet);
 
-
-            var roomType = (RoomType)RoomTypeField.SelectedIndex;
-
-            var context = HostelDbContext.GetInstance();
-
-            if (string.IsNullOrWhiteSpace(context.GetDatabaseFullFileName()))
-            {
-                context.SetDatabaseFullFileName(Path.GetTempFileName());
-
-                await context.GenerateTestDataSet();
-            }
-
-            var rooms = await context.GetRoomsAsync();
-
-            rooms = rooms.Where(r =>
-                r.RoomType == roomType
-                || roomType == RoomType.Все).ToList();
+            var rooms = await roomProvider.GetRoomsAsync();
 
             RoomGrid.DataSource = rooms;
         }
 
         private void RoomForm_Load(object sender, EventArgs e)
         {
-            ExecuteQuery().GetAwaiter().GetResult();
+            var context = HostelDbContext.GetInstance();
+
+            if (string.IsNullOrWhiteSpace(context.GetDatabaseFullFileName()))
+            {
+                using var session = context.BeginSession();
+
+                context.SetDatabaseFullFileName(Path.GetTempFileName());
+
+                context.GenerateTestDataSet().GetAwaiter().GetResult();
+            }
+
+            ExecuteRoomQuery().GetAwaiter().GetResult();
 
             InitFilters();
         }
@@ -63,12 +58,12 @@ namespace HostelApp
 
         private void RoomTypeField_SelectedValueChanged(object sender, EventArgs e)
         {
-            ExecuteQuery().GetAwaiter().GetResult();
+            ExecuteRoomQuery().GetAwaiter().GetResult();
         }
 
         private void FilterChanged(object sender, EventArgs e)
         {
-            ExecuteQuery().GetAwaiter().GetResult();
+            ExecuteRoomQuery().GetAwaiter().GetResult();
         }
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)

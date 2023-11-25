@@ -215,7 +215,7 @@
             // MaxFloorNumberField
             // 
             MaxFloorNumberField.Location = new Point(112, 17);
-            MaxFloorNumberField.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
+            MaxFloorNumberField.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
             MaxFloorNumberField.Name = "MaxFloorNumberField";
             MaxFloorNumberField.Size = new Size(47, 23);
             MaxFloorNumberField.TabIndex = 20;
@@ -224,7 +224,7 @@
             // MinFloorNumberField
             // 
             MinFloorNumberField.Location = new Point(35, 17);
-            MinFloorNumberField.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
+            MinFloorNumberField.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
             MinFloorNumberField.Name = "MinFloorNumberField";
             MinFloorNumberField.Size = new Size(47, 23);
             MinFloorNumberField.TabIndex = 19;
@@ -454,7 +454,7 @@
             // 
             // TabControl
             // 
-            TabControl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            TabControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             TabControl.Controls.Add(RoomTab);
             TabControl.Controls.Add(BedroomTab);
             TabControl.Controls.Add(BedTab);
