@@ -45,8 +45,8 @@
             MinFloorNumberField = new NumericUpDown();
             label8 = new Label();
             label9 = new Label();
-            MaxAreaNumberField = new NumericUpDown();
-            MinAreaNumberField = new NumericUpDown();
+            MaxAreaField = new NumericUpDown();
+            MinAreaField = new NumericUpDown();
             label10 = new Label();
             label11 = new Label();
             label12 = new Label();
@@ -62,12 +62,14 @@
             label18 = new Label();
             splitContainer1 = new SplitContainer();
             panel1 = new Panel();
-            monthCalendar1 = new MonthCalendar();
+            VacantCalendar = new MonthCalendar();
             IsVacantField = new CheckBox();
             TabControl = new TabControl();
             RoomTab = new TabPage();
             BedroomTab = new TabPage();
+            BedroomGrid = new DataGridView();
             BedTab = new TabPage();
+            BedGrid = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)RoomGrid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MinCapacityField).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MaxCapacityField).BeginInit();
@@ -75,8 +77,8 @@
             ((System.ComponentModel.ISupportInitialize)TwoPlaceBedNumberField).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MaxFloorNumberField).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MinFloorNumberField).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)MaxAreaNumberField).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)MinAreaNumberField).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)MaxAreaField).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)MinAreaField).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MaxBathroomNumberField).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MinBathroomNumberField).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MaxBedroomNumberField).BeginInit();
@@ -88,6 +90,10 @@
             panel1.SuspendLayout();
             TabControl.SuspendLayout();
             RoomTab.SuspendLayout();
+            BedroomTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)BedroomGrid).BeginInit();
+            BedTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)BedGrid).BeginInit();
             SuspendLayout();
             // 
             // RoomGrid
@@ -105,6 +111,8 @@
             RoomGrid.Size = new Size(703, 432);
             RoomGrid.TabIndex = 0;
             RoomGrid.CellContentClick += RoomGrid_CellContentClick;
+            RoomGrid.DataBindingComplete += RoomGrid_DataBindingComplete;
+            RoomGrid.SelectionChanged += RoomGrid_SelectionChanged;
             // 
             // RoomTypeField
             // 
@@ -248,23 +256,23 @@
             label9.TabIndex = 17;
             label9.Text = "От";
             // 
-            // MaxAreaNumberField
+            // MaxAreaField
             // 
-            MaxAreaNumberField.Location = new Point(112, 55);
-            MaxAreaNumberField.Maximum = new decimal(new int[] { 150, 0, 0, 0 });
-            MaxAreaNumberField.Name = "MaxAreaNumberField";
-            MaxAreaNumberField.Size = new Size(47, 23);
-            MaxAreaNumberField.TabIndex = 25;
-            MaxAreaNumberField.ValueChanged += FilterChanged;
+            MaxAreaField.Location = new Point(112, 55);
+            MaxAreaField.Maximum = new decimal(new int[] { 150, 0, 0, 0 });
+            MaxAreaField.Name = "MaxAreaField";
+            MaxAreaField.Size = new Size(47, 23);
+            MaxAreaField.TabIndex = 25;
+            MaxAreaField.ValueChanged += FilterChanged;
             // 
-            // MinAreaNumberField
+            // MinAreaField
             // 
-            MinAreaNumberField.Location = new Point(35, 55);
-            MinAreaNumberField.Maximum = new decimal(new int[] { 150, 0, 0, 0 });
-            MinAreaNumberField.Name = "MinAreaNumberField";
-            MinAreaNumberField.Size = new Size(47, 23);
-            MinAreaNumberField.TabIndex = 24;
-            MinAreaNumberField.ValueChanged += FilterChanged;
+            MinAreaField.Location = new Point(35, 55);
+            MinAreaField.Maximum = new decimal(new int[] { 150, 0, 0, 0 });
+            MinAreaField.Name = "MinAreaField";
+            MinAreaField.Size = new Size(47, 23);
+            MinAreaField.TabIndex = 24;
+            MinAreaField.ValueChanged += FilterChanged;
             // 
             // label10
             // 
@@ -397,9 +405,9 @@
             splitContainer1.Panel1.Controls.Add(label8);
             splitContainer1.Panel1.Controls.Add(MinFloorNumberField);
             splitContainer1.Panel1.Controls.Add(MaxFloorNumberField);
-            splitContainer1.Panel1.Controls.Add(MaxAreaNumberField);
+            splitContainer1.Panel1.Controls.Add(MaxAreaField);
             splitContainer1.Panel1.Controls.Add(label11);
-            splitContainer1.Panel1.Controls.Add(MinAreaNumberField);
+            splitContainer1.Panel1.Controls.Add(MinAreaField);
             splitContainer1.Panel1.Controls.Add(label10);
             // 
             // splitContainer1.Panel2
@@ -426,21 +434,20 @@
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(monthCalendar1);
+            panel1.Controls.Add(VacantCalendar);
             panel1.Controls.Add(IsVacantField);
             panel1.Location = new Point(715, 5);
             panel1.Name = "panel1";
             panel1.Size = new Size(180, 190);
             panel1.TabIndex = 37;
             // 
-            // monthCalendar1
+            // VacantCalendar
             // 
-            monthCalendar1.Location = new Point(9, 22);
-            monthCalendar1.MaxSelectionCount = 31;
-            monthCalendar1.Name = "monthCalendar1";
-            monthCalendar1.TabIndex = 1;
-            monthCalendar1.DateChanged += monthCalendar1_DateChanged;
-            monthCalendar1.DateSelected += monthCalendar1_DateChanged;
+            VacantCalendar.Location = new Point(9, 22);
+            VacantCalendar.MaxSelectionCount = 31;
+            VacantCalendar.Name = "VacantCalendar";
+            VacantCalendar.TabIndex = 1;
+            VacantCalendar.DateSelected += monthCalendar1_DateChanged;
             // 
             // IsVacantField
             // 
@@ -477,6 +484,7 @@
             // 
             // BedroomTab
             // 
+            BedroomTab.Controls.Add(BedroomGrid);
             BedroomTab.Location = new Point(4, 24);
             BedroomTab.Name = "BedroomTab";
             BedroomTab.Padding = new Padding(3);
@@ -485,14 +493,35 @@
             BedroomTab.Text = "Спальни";
             BedroomTab.UseVisualStyleBackColor = true;
             // 
+            // BedroomGrid
+            // 
+            BedroomGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            BedroomGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            BedroomGrid.Location = new Point(0, 0);
+            BedroomGrid.Name = "BedroomGrid";
+            BedroomGrid.RowTemplate.Height = 25;
+            BedroomGrid.Size = new Size(700, 432);
+            BedroomGrid.TabIndex = 0;
+            // 
             // BedTab
             // 
+            BedTab.Controls.Add(BedGrid);
             BedTab.Location = new Point(4, 24);
             BedTab.Name = "BedTab";
             BedTab.Size = new Size(700, 432);
             BedTab.TabIndex = 2;
             BedTab.Text = "Спальные места";
             BedTab.UseVisualStyleBackColor = true;
+            // 
+            // BedGrid
+            // 
+            BedGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            BedGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            BedGrid.Location = new Point(0, 0);
+            BedGrid.Name = "BedGrid";
+            BedGrid.RowTemplate.Height = 25;
+            BedGrid.Size = new Size(700, 432);
+            BedGrid.TabIndex = 0;
             // 
             // RoomForm
             // 
@@ -519,8 +548,8 @@
             ((System.ComponentModel.ISupportInitialize)TwoPlaceBedNumberField).EndInit();
             ((System.ComponentModel.ISupportInitialize)MaxFloorNumberField).EndInit();
             ((System.ComponentModel.ISupportInitialize)MinFloorNumberField).EndInit();
-            ((System.ComponentModel.ISupportInitialize)MaxAreaNumberField).EndInit();
-            ((System.ComponentModel.ISupportInitialize)MinAreaNumberField).EndInit();
+            ((System.ComponentModel.ISupportInitialize)MaxAreaField).EndInit();
+            ((System.ComponentModel.ISupportInitialize)MinAreaField).EndInit();
             ((System.ComponentModel.ISupportInitialize)MaxBathroomNumberField).EndInit();
             ((System.ComponentModel.ISupportInitialize)MinBathroomNumberField).EndInit();
             ((System.ComponentModel.ISupportInitialize)MaxBedroomNumberField).EndInit();
@@ -535,6 +564,10 @@
             panel1.PerformLayout();
             TabControl.ResumeLayout(false);
             RoomTab.ResumeLayout(false);
+            BedroomTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)BedroomGrid).EndInit();
+            BedTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)BedGrid).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -558,8 +591,8 @@
         private NumericUpDown MinFloorNumberField;
         private Label label8;
         private Label label9;
-        private NumericUpDown MaxAreaNumberField;
-        private NumericUpDown MinAreaNumberField;
+        private NumericUpDown MaxAreaField;
+        private NumericUpDown MinAreaField;
         private Label label10;
         private Label label11;
         private Label label12;
@@ -576,10 +609,12 @@
         private SplitContainer splitContainer1;
         private Panel panel1;
         private CheckBox IsVacantField;
-        private MonthCalendar monthCalendar1;
+        private MonthCalendar VacantCalendar;
         private TabControl TabControl;
         private TabPage RoomTab;
         private TabPage BedroomTab;
         private TabPage BedTab;
+        private DataGridView BedroomGrid;
+        private DataGridView BedGrid;
     }
 }

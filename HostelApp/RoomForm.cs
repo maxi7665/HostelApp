@@ -1,8 +1,8 @@
+using HostelApp.Entities;
 using HostelApp.Entities.Codes;
 using HostelApp.Extensions;
 using HostelApp.Persistence;
 using HostelApp.Requirements;
-using System.Data;
 
 namespace HostelApp
 {
@@ -13,6 +13,25 @@ namespace HostelApp
             InitializeComponent();
         }
 
+        private async Task ExecuteBedroomQuery()
+        {
+            var dataSource = Enumerable.Empty<Bedroom>().ToList();
+
+            if (RoomGrid.CurrentRow != null)
+            {
+                var room = RoomGrid.CurrentRow.DataBoundItem as Room;
+
+                if (room != null)
+                {
+                    dataSource = await HostelDbContext
+                        .GetInstance()
+                        .GetRoomBedroomsAsync(room.Id);
+                }
+            }
+
+            BedroomGrid.DataSource = dataSource;
+        }
+
         private async Task ExecuteRoomQuery()
         {
             var requirementSet = new RequirementSetBuilder()
@@ -21,11 +40,41 @@ namespace HostelApp
                 .AddFloorNumberRequirement(
                     (int)MinFloorNumberField.Value,
                     (int)MaxFloorNumberField.Value)
+                .AddAreaRequirement(
+                    (double)MinAreaField.Value,
+                    (double)MaxAreaField.Value)
+                .AddCapacityRequrement(
+                    (int)MinCapacityField.Value,
+                    (int)MaxCapacityField.Value)
+                .AddBathroomRequirement(
+                    (int)MinBathroomNumberField.Value,
+                    (int)MaxBathroomNumberField.Value)
+                .AddBedRequirement(
+                    (int)OnePlaceBedNumberField.Value,
+                    (int)TwoPlaceBedNumberField.Value)
+                .AddBedroomRequirement(
+                    (int)MinBedroomNumberField.Value,
+                    (int)MaxBedroomNumberField.Value)
                 .BuildRequirementSet();
 
             var roomProvider = new RequirementRoomProvider(requirementSet);
 
-            var rooms = await roomProvider.GetRoomsAsync();
+            var fromDate = VacantCalendar.SelectionStart;
+            var toDate = VacantCalendar.SelectionEnd;
+
+            List<Room> rooms;
+
+            if (fromDate != DateTime.MinValue
+                && toDate != DateTime.MinValue)
+            {
+                rooms = await roomProvider.GetVacantRoomsAsync(
+                    fromDate,
+                    toDate);
+            }
+            else
+            {
+                rooms = await roomProvider.GetRoomsAsync();
+            }
 
             RoomGrid.DataSource = rooms;
         }
@@ -74,6 +123,16 @@ namespace HostelApp
         private void RoomGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void RoomGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            ExecuteBedroomQuery().GetAwaiter().GetResult();
+        }
+
+        private void RoomGrid_SelectionChanged(object sender, EventArgs e)
+        {
+            ExecuteBedroomQuery().GetAwaiter().GetResult();
         }
     }
 }

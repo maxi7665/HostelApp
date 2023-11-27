@@ -1,7 +1,5 @@
 ﻿using HostelApp.Entities;
 using HostelApp.Persistence;
-using System.Diagnostics;
-using System.Drawing;
 
 namespace HostelApp.Extensions
 {
@@ -22,11 +20,20 @@ namespace HostelApp.Extensions
 
             rooms.Clear();
 
-            for (int i = 0; i <= 100; i ++)
+            for (int i = 0; i <= 100; i++)
             {
                 var room = GenerateRandomRoom();
 
                 await context.AddRoomAsync(room);
+
+                var bedrooms = GenerateRandomBedroomList(room.Area);
+
+                bedrooms.ForEach(async b => 
+                {
+                    b.RoomId = room.Id;
+
+                    await context.AddBedroomAsync(b);
+                });
             }
         }
 
@@ -48,5 +55,45 @@ namespace HostelApp.Extensions
 
             return room;
         }
+
+        private static List<Bedroom> GenerateRandomBedroomList(double area)
+        {
+            List<Bedroom> ret = new();
+
+            var random = new Random();
+
+            var count = random.Next(1, 5);
+
+            double sumOfArea = 0;
+
+            for (int i = 0; i < count; i++)
+            {
+                double bedroomArea;
+
+                if (i < count - 1)
+                {
+                    bedroomArea = (area / count) * (random.NextDouble() * 0.2 + 1);                   
+
+                    sumOfArea += bedroomArea;
+                }
+                else
+                {
+                    bedroomArea = area - sumOfArea;
+                }
+
+                bedroomArea = (double)(int)(bedroomArea * 100) / 100;
+
+                var bedroom = new Bedroom()
+                {
+                    Area = bedroomArea
+                };
+
+                ret.Add(bedroom);
+            }
+
+            return ret;
+        }
+
+        //private static List<Bed>
     }
 }
