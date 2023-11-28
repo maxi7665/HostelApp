@@ -1,5 +1,6 @@
 ﻿using HostelApp.Entities;
 using HostelApp.Persistence;
+using System.Diagnostics;
 
 namespace HostelApp.Extensions
 {
@@ -33,7 +34,23 @@ namespace HostelApp.Extensions
                     b.RoomId = room.Id;
 
                     await context.AddBedroomAsync(b);
+
+                    var beds = GenerateRandomBedList();
+
+                    beds.ForEach(async bed =>
+                    {
+                        bed.BedroomId = b.Id;
+
+                        await context.AddBedAsync(bed);
+                    });
                 });
+            }
+        
+            for (int i = 0; i < 100; i++)
+            {
+                var customer = GenerateRandomCustomer();
+
+                await context.AddCustomerAsync(customer);
             }
         }
 
@@ -94,6 +111,93 @@ namespace HostelApp.Extensions
             return ret;
         }
 
-        //private static List<Bed>
+        private static List<Bed> GenerateRandomBedList()
+        {
+            var random = new Random();
+
+            List<Bed> ret = new();
+
+            var count = random.Next(1, 3);
+
+            for (int i = 0; i < count; i++)
+            {
+                var bed = new Bed()
+                {
+                    Capacity = random.Next(1, 3)
+                };
+
+                ret.Add(bed);
+            }
+
+            return ret;
+        }
+
+        private static Customer GenerateRandomCustomer()
+        {
+            var random = new Random();
+
+            var utcNow = DateTime.UtcNow;
+
+            var ageYears = random.Next(1, 100);
+            var ageDays = random.Next(1, 365);
+
+            var birthDate = utcNow.AddYears(-ageYears).AddDays(ageDays).Date;
+
+            Customer ret = new()
+            {
+                BirthDate = birthDate,
+                FullName = GenerateRandomFullName()
+            };
+
+            return ret;
+        }
+
+        private static string[] NAMES = new string[] 
+        { 
+            "Иван",
+            "Максим",
+            "Димон",
+            "Егор",
+            "Андрей",
+            "Аркадий",
+            "Руслан",
+            "Денис"
+        };
+
+        private static string[] SURNAMES = new string[]
+        {
+            "Петров",
+            "Иванов",
+            "Сидоров",
+            "Микушов",
+            "Денисов",
+            "Андреев",
+            "Снегов",
+            "Жук",
+            "Кружков"
+        };
+
+        private static string[] SECOND_NAMES = new string[]
+        {
+            "Денисович",
+            "Русланович",
+            "Аркадьевич",
+            "Андреевич",
+            "Егорович",
+            "Дмитриевич",
+            "Максимвович",
+            "Иванович"
+        };
+
+        private static string GenerateRandomFullName()
+        {
+            var random = new Random();
+
+            var fullName = $"{SURNAMES[random.Next(0, SURNAMES.Length)]} " +
+                $"{NAMES[random.Next(0, NAMES.Length)]} " +
+                $"{SECOND_NAMES[random.Next(0, SECOND_NAMES.Length)]}";
+
+            return fullName;
+        }
     }
 }

@@ -87,7 +87,9 @@ namespace HostelApp.Persistence
             {
                 if (prop.PropertyType == typeof(List<T>))
                 {
-                    return (List<T>)prop.GetValue(scheme)!;
+                    return ((List<T>)prop.GetValue(scheme)!)
+                        .OrderBy(e => e.Id)
+                        .ToList();
                 }
             }
 

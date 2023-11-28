@@ -70,6 +70,7 @@
             BedroomGrid = new DataGridView();
             BedTab = new TabPage();
             BedGrid = new DataGridView();
+            CustomersButton = new Button();
             ((System.ComponentModel.ISupportInitialize)RoomGrid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MinCapacityField).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MaxCapacityField).BeginInit();
@@ -499,9 +500,12 @@
             BedroomGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             BedroomGrid.Location = new Point(0, 0);
             BedroomGrid.Name = "BedroomGrid";
+            BedroomGrid.ReadOnly = true;
             BedroomGrid.RowTemplate.Height = 25;
             BedroomGrid.Size = new Size(700, 432);
             BedroomGrid.TabIndex = 0;
+            BedroomGrid.DataBindingComplete += BedroomGrid_DataBindingComplete;
+            BedroomGrid.SelectionChanged += BedroomGrid_SelectionChanged;
             // 
             // BedTab
             // 
@@ -519,15 +523,28 @@
             BedGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             BedGrid.Location = new Point(0, 0);
             BedGrid.Name = "BedGrid";
+            BedGrid.ReadOnly = true;
             BedGrid.RowTemplate.Height = 25;
             BedGrid.Size = new Size(700, 432);
             BedGrid.TabIndex = 0;
+            // 
+            // CustomersButton
+            // 
+            CustomersButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            CustomersButton.Location = new Point(719, 202);
+            CustomersButton.Name = "CustomersButton";
+            CustomersButton.Size = new Size(176, 23);
+            CustomersButton.TabIndex = 39;
+            CustomersButton.Text = "Гости";
+            CustomersButton.UseVisualStyleBackColor = true;
+            CustomersButton.Click += CustomersButton_Click;
             // 
             // RoomForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(907, 565);
+            Controls.Add(CustomersButton);
             Controls.Add(TabControl);
             Controls.Add(panel1);
             Controls.Add(splitContainer1);
@@ -616,5 +633,6 @@
         private TabPage BedTab;
         private DataGridView BedroomGrid;
         private DataGridView BedGrid;
+        private Button CustomersButton;
     }
 }

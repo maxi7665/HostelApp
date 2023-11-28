@@ -9,5 +9,8 @@ namespace HostelApp.Entities
 
         [DisplayName("Дата рождения")]
         public DateTime BirthDate { get; set; }
+
+        [DisplayName("Возраст")]
+        public int Age { get => DateTime.UtcNow.Year - BirthDate.Year; }
     }
 }

@@ -32,6 +32,25 @@ namespace HostelApp
             BedroomGrid.DataSource = dataSource;
         }
 
+        private async Task ExecuteBedQuery()
+        {
+            var dataSource = Enumerable.Empty<Bed>().ToList();
+
+            if (BedroomGrid.CurrentRow != null)
+            {
+                var bedroom = BedroomGrid.CurrentRow.DataBoundItem as Bedroom;
+
+                if (bedroom != null)
+                {
+                    dataSource = await HostelDbContext
+                        .GetInstance()
+                        .GetBedroomBedsAsync(bedroom.Id);
+                }
+            }
+
+            BedGrid.DataSource = dataSource;
+        }
+
         private async Task ExecuteRoomQuery()
         {
             var requirementSet = new RequirementSetBuilder()
@@ -133,6 +152,23 @@ namespace HostelApp
         private void RoomGrid_SelectionChanged(object sender, EventArgs e)
         {
             ExecuteBedroomQuery().GetAwaiter().GetResult();
+        }
+
+        private void BedroomGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            ExecuteBedQuery().GetAwaiter().GetResult();
+        }
+
+        private void BedroomGrid_SelectionChanged(object sender, EventArgs e)
+        {
+            ExecuteBedQuery().GetAwaiter().GetResult();
+        }
+
+        private void CustomersButton_Click(object sender, EventArgs e)
+        {
+            var customers = new CustomersForm();
+
+            customers.ShowDialog(this);
         }
     }
 }

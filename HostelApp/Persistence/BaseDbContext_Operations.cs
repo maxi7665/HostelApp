@@ -1,4 +1,5 @@
 ﻿using HostelApp.Entities;
+using HostelApp.Exceptions;
 
 namespace HostelApp.Persistence
 {
@@ -12,7 +13,20 @@ namespace HostelApp.Persistence
 
         public async Task UpdateRoomAsync(Room room) => await UpdateEntity(room);
 
-        public async Task DeleteRoomAsync(int id) => await DeleteEntity<Room>(id);
+        public async Task DeleteRoomAsync(int id)
+        {
+            if ((await GetAccomodationsAsync())
+                .Any(a => a.RoomId == id))
+            {
+                throw new PersistenceException(
+                    "Для номера существуют заселения! Удаление невозможно");
+            }
+
+            await DeleteEntity<Room>(id);
+
+            (await GetRoomBedroomsAsync(id))
+                .ForEach(async b => await DeleteBedroomAsync(id));            
+        }
 
 
         public async Task<List<Accomodation>> GetAccomodationsAsync() => await GetEntities<Accomodation>();
@@ -34,7 +48,13 @@ namespace HostelApp.Persistence
 
         public async Task UpdateBedroomAsync(Bedroom bedroom) => await UpdateEntity(bedroom);
 
-        public async Task DeleteBedroomAsync(int id) => await DeleteEntity<Bedroom>(id);
+        public async Task DeleteBedroomAsync(int id)
+        {
+            await DeleteEntity<Bedroom>(id);
+
+            (await GetBedroomBedsAsync(id))
+                .ForEach(async b => await DeleteBedAsync(b.Id));
+        }
 
         public async Task<List<Bedroom>> GetRoomBedroomsAsync(int roomId) => 
             (await GetBedroomsAsync()).Where(b => b.RoomId == roomId).ToList();
@@ -54,13 +74,13 @@ namespace HostelApp.Persistence
             (await GetBedsAsync()).Where(b => b.BedroomId == bedroomId).ToList();
 
 
-        public async Task<List<Customer>> GetCustomerAsync() => await GetEntities<Customer>();
+        public async Task<List<Customer>> GetCustomersAsync() => await GetEntities<Customer>();
 
         public async Task<Customer?> GetCustomerAsync(int id) => await GetEntity<Customer>(id);
 
-        public async Task AdCustomerAsync(Customer customer) => await AddEntity(customer);
+        public async Task AddCustomerAsync(Customer customer) => await AddEntity(customer);
 
-        public async Task UpdateCustomerAsync(Bed customer) => await UpdateEntity(customer);
+        public async Task UpdateCustomerAsync(Customer customer) => await UpdateEntity(customer);
 
         public async Task DeleteCustomerAsync(int id) => await DeleteEntity<Customer>(id);
     }
