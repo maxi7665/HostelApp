@@ -106,7 +106,7 @@ namespace HostelApp
         {
             try
             {
-                var selectedCustomer = GetCurrentCustomer() 
+                var selectedCustomer = GetCurrentCustomer()
                     ?? throw new PersistenceException("Гость не выбран!");
 
                 var customer = ReadCustomerFromForm();
@@ -155,6 +155,31 @@ namespace HostelApp
             catch (Exception ex)
             {
                 MessageBox.Show(this, ex.Message, "Ошибка");
+            }
+        }
+
+        private void SelectButton_Click(object sender, EventArgs e)
+        {
+            var customer = GetCurrentCustomer();
+
+            if (customer == null)
+            {
+                MessageBox.Show(this, "Гость не выбран", "Ошибка");
+
+                return;
+            }
+
+            if (Owner is RoomForm roomForm)
+            {
+                roomForm.SetSelectedCustomer(customer);
+
+                Close(); 
+                
+                return;
+            }
+            else
+            {
+                MessageBox.Show(this, "Невозможно выбрать пользователя", "Ошибка");
             }
         }
     }

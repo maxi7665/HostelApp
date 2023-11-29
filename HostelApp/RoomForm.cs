@@ -8,6 +8,24 @@ namespace HostelApp
 {
     public partial class RoomForm : Form
     {
+        private Customer? _selectedCustomer = null;
+
+        public void SetSelectedCustomer(Customer? selectedCustomer)
+        {
+            _selectedCustomer = selectedCustomer;
+
+            if (_selectedCustomer != null)
+            {
+                CurrentCustomerLabel.Text =
+                    $"Текущий гость: {_selectedCustomer.FullName} ({_selectedCustomer.Id})";
+            }
+            else
+            {
+                CurrentCustomerLabel.Text =
+                    $"Текущий гость: не выбран";
+            }
+        }
+
         public RoomForm()
         {
             InitializeComponent();
@@ -169,6 +187,154 @@ namespace HostelApp
             var customers = new CustomersForm();
 
             customers.ShowDialog(this);
+        }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            var currentGrid = GetActiveGrid();
+
+            if (currentGrid == null)
+            {
+                MessageBox.Show(this, "Данные не выбраны", "Ошибка");
+
+                return;
+            }
+
+            var currentObject = currentGrid.CurrentRow.DataBoundItem;
+
+            if (currentObject != null)
+            {
+                var edit = new EditEntityForm(currentObject);                
+
+                var result = edit.ShowDialog(this);
+
+                if (result == DialogResult.OK)
+                {
+                    using (var session = HostelDbContext.GetInstance().BeginSession())
+                    {
+                        if (currentGrid == RoomGrid)
+                        {
+                            HostelDbContext.GetInstance().UpdateRoomAsync((Room)currentObject)
+                                .GetAwaiter().GetResult();
+                        }
+                        else if (currentGrid == BedroomGrid)
+                        {
+                            HostelDbContext.GetInstance().UpdateBedroomAsync((Bedroom)currentObject)
+                                .GetAwaiter().GetResult();
+                        }
+                        else if (currentGrid == BedGrid)
+                        {
+                            HostelDbContext.GetInstance().UpdateBedAsync((Bed)currentObject)
+                                .GetAwaiter().GetResult();
+                        }
+                    }
+
+                    currentGrid.Update();
+                    currentGrid.Refresh();
+                }
+            }
+            else
+            {
+                MessageBox.Show(this, "Данные не выбраны", "Ошибка");
+            }
+        }
+
+        private DataGridView? GetActiveGrid()
+        {
+            if (TabControl.SelectedTab == RoomTab)
+            {
+                return RoomGrid;
+            }
+            else if (TabControl.SelectedTab == BedroomTab)
+            {
+                return BedroomGrid;
+            }
+            else if (TabControl.SelectedTab == BedTab)
+            {
+                return BedGrid;
+            }
+
+            return null;
+        }
+
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+            var currentGrid = GetActiveGrid();
+
+            if (currentGrid == null)
+            {
+                MessageBox.Show(this, "Данные не выбраны", "Ошибка");
+
+                return;
+            }
+
+            object? currentObject = null;
+
+            if (currentGrid == RoomGrid)
+            {
+                currentObject = new Room();
+            }
+            else if (currentGrid == BedroomGrid)
+            {
+                var room = RoomGrid.CurrentRow.DataBoundItem as Room;
+
+                currentObject = new Bedroom()
+                {
+                    RoomId = room?.Id ?? 0
+                };
+            }
+            else if (currentGrid == BedGrid)
+            {
+                var bedroom = BedroomGrid.CurrentRow.DataBoundItem as Bedroom;
+
+                currentObject = new Bed()
+                {
+                    BedroomId = bedroom?.Id ?? 0
+                };
+            }
+
+            if (currentObject != null)
+            {
+                var edit = new EditEntityForm(currentObject);
+
+                var result = edit.ShowDialog(this);
+
+                if (result == DialogResult.OK)
+                {
+                    using (var session = HostelDbContext.GetInstance().BeginSession())
+                    {
+                        if (currentGrid == RoomGrid)
+                        {
+                            HostelDbContext.GetInstance().AddRoomAsync((Room)currentObject).GetAwaiter().GetResult();
+                        }
+                        else if (currentGrid == BedroomGrid)
+                        {
+                            HostelDbContext.GetInstance().AddBedroomAsync((Bedroom)currentObject).GetAwaiter().GetResult();
+                        }
+                        else if (currentGrid == BedGrid)
+                        {
+                            HostelDbContext.GetInstance().AddBedAsync((Bed)currentObject).GetAwaiter().GetResult();
+                        }
+                    }
+
+                    if (currentGrid == RoomGrid)
+                    {
+                        ExecuteRoomQuery().GetAwaiter().GetResult();
+                    }
+                    else if (currentGrid == BedroomGrid)
+                    {
+                        ExecuteBedroomQuery().GetAwaiter().GetResult();
+                    }
+                    else if (currentGrid == BedGrid)
+                    {
+                        ExecuteBedQuery().GetAwaiter().GetResult();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show(this, "Данные не выбраны", "Ошибка");
+            }
         }
     }
 }

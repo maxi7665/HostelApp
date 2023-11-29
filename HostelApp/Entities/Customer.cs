@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace HostelApp.Entities
 {
@@ -8,6 +9,7 @@ namespace HostelApp.Entities
         public string FullName { get; set; } = string.Empty;
 
         [DisplayName("Дата рождения")]
+        [DisplayFormat(DataFormatString = "short")]
         public DateTime BirthDate { get; set; }
 
         [DisplayName("Возраст")]

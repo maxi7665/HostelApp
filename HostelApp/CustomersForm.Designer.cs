@@ -37,6 +37,7 @@
             EditButton = new Button();
             RemoveButton = new Button();
             CancelButton = new Button();
+            SelectButton = new Button();
             ((System.ComponentModel.ISupportInitialize)CustomersGrid).BeginInit();
             SuspendLayout();
             // 
@@ -49,7 +50,7 @@
             CustomersGrid.Name = "CustomersGrid";
             CustomersGrid.ReadOnly = true;
             CustomersGrid.RowTemplate.Height = 25;
-            CustomersGrid.Size = new Size(440, 286);
+            CustomersGrid.Size = new Size(440, 301);
             CustomersGrid.TabIndex = 0;
             CustomersGrid.SelectionChanged += CustomersGrid_SelectionChanged;
             // 
@@ -89,7 +90,7 @@
             // CreateButton
             // 
             CreateButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            CreateButton.Location = new Point(25, 409);
+            CreateButton.Location = new Point(91, 404);
             CreateButton.Name = "CreateButton";
             CreateButton.Size = new Size(75, 23);
             CreateButton.TabIndex = 5;
@@ -100,7 +101,7 @@
             // EditButton
             // 
             EditButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            EditButton.Location = new Point(106, 409);
+            EditButton.Location = new Point(203, 404);
             EditButton.Name = "EditButton";
             EditButton.Size = new Size(75, 23);
             EditButton.TabIndex = 6;
@@ -111,7 +112,7 @@
             // RemoveButton
             // 
             RemoveButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            RemoveButton.Location = new Point(187, 409);
+            RemoveButton.Location = new Point(313, 404);
             RemoveButton.Name = "RemoveButton";
             RemoveButton.Size = new Size(75, 23);
             RemoveButton.TabIndex = 7;
@@ -121,7 +122,7 @@
             // 
             // CancelButton
             // 
-            CancelButton.Location = new Point(377, 409);
+            CancelButton.Location = new Point(313, 451);
             CancelButton.Name = "CancelButton";
             CancelButton.Size = new Size(75, 23);
             CancelButton.TabIndex = 8;
@@ -129,11 +130,22 @@
             CancelButton.UseVisualStyleBackColor = true;
             CancelButton.Click += CancelButton_Click;
             // 
+            // SelectButton
+            // 
+            SelectButton.Location = new Point(91, 451);
+            SelectButton.Name = "SelectButton";
+            SelectButton.Size = new Size(75, 23);
+            SelectButton.TabIndex = 9;
+            SelectButton.Text = "Выбрать";
+            SelectButton.UseVisualStyleBackColor = true;
+            SelectButton.Click += SelectButton_Click;
+            // 
             // CustomersForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(464, 450);
+            ClientSize = new Size(464, 486);
+            Controls.Add(SelectButton);
             Controls.Add(CancelButton);
             Controls.Add(RemoveButton);
             Controls.Add(EditButton);
@@ -161,5 +173,6 @@
         private Button EditButton;
         private Button RemoveButton;
         private Button CancelButton;
+        private Button SelectButton;
     }
 }
