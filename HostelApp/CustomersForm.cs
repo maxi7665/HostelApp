@@ -173,8 +173,8 @@ namespace HostelApp
             {
                 roomForm.SetSelectedCustomer(customer);
 
-                Close(); 
-                
+                Close();
+
                 return;
             }
             else

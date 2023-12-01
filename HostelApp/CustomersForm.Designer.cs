@@ -36,7 +36,7 @@
             CreateButton = new Button();
             EditButton = new Button();
             RemoveButton = new Button();
-            CancelButton = new Button();
+            CancelSelectionButton = new Button();
             SelectButton = new Button();
             ((System.ComponentModel.ISupportInitialize)CustomersGrid).BeginInit();
             SuspendLayout();
@@ -120,15 +120,15 @@
             RemoveButton.UseVisualStyleBackColor = true;
             RemoveButton.Click += RemoveButton_Click;
             // 
-            // CancelButton
+            // CancelSelectionButton
             // 
-            CancelButton.Location = new Point(313, 451);
-            CancelButton.Name = "CancelButton";
-            CancelButton.Size = new Size(75, 23);
-            CancelButton.TabIndex = 8;
-            CancelButton.Text = "Отмена";
-            CancelButton.UseVisualStyleBackColor = true;
-            CancelButton.Click += CancelButton_Click;
+            CancelSelectionButton.Location = new Point(313, 451);
+            CancelSelectionButton.Name = "CancelSelectionButton";
+            CancelSelectionButton.Size = new Size(75, 23);
+            CancelSelectionButton.TabIndex = 8;
+            CancelSelectionButton.Text = "Отмена";
+            CancelSelectionButton.UseVisualStyleBackColor = true;
+            CancelSelectionButton.Click += CancelButton_Click;
             // 
             // SelectButton
             // 
@@ -146,7 +146,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(464, 486);
             Controls.Add(SelectButton);
-            Controls.Add(CancelButton);
+            Controls.Add(CancelSelectionButton);
             Controls.Add(RemoveButton);
             Controls.Add(EditButton);
             Controls.Add(CreateButton);
@@ -172,7 +172,7 @@
         private Button CreateButton;
         private Button EditButton;
         private Button RemoveButton;
-        private Button CancelButton;
+        private Button CancelSelectionButton;
         private Button SelectButton;
     }
 }

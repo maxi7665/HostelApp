@@ -75,6 +75,8 @@
             CurrentCustomerLabel = new ToolStripStatusLabel();
             EditButton = new Button();
             AddButton = new Button();
+            AccomodationButton = new Button();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)RoomGrid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MinCapacityField).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MaxCapacityField).BeginInit();
@@ -114,7 +116,7 @@
             RoomGrid.Name = "RoomGrid";
             RoomGrid.ReadOnly = true;
             RoomGrid.RowTemplate.Height = 25;
-            RoomGrid.Size = new Size(703, 426);
+            RoomGrid.Size = new Size(697, 412);
             RoomGrid.TabIndex = 0;
             RoomGrid.CellContentClick += RoomGrid_CellContentClick;
             RoomGrid.DataBindingComplete += RoomGrid_DataBindingComplete;
@@ -442,7 +444,7 @@
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(VacantCalendar);
             panel1.Controls.Add(IsVacantField);
-            panel1.Location = new Point(715, 5);
+            panel1.Location = new Point(709, 5);
             panel1.Name = "panel1";
             panel1.Size = new Size(180, 190);
             panel1.TabIndex = 37;
@@ -474,7 +476,7 @@
             TabControl.Location = new Point(5, 93);
             TabControl.Name = "TabControl";
             TabControl.SelectedIndex = 0;
-            TabControl.Size = new Size(708, 454);
+            TabControl.Size = new Size(702, 440);
             TabControl.TabIndex = 38;
             // 
             // RoomTab
@@ -483,7 +485,7 @@
             RoomTab.Location = new Point(4, 24);
             RoomTab.Name = "RoomTab";
             RoomTab.Padding = new Padding(3);
-            RoomTab.Size = new Size(700, 426);
+            RoomTab.Size = new Size(694, 412);
             RoomTab.TabIndex = 0;
             RoomTab.Text = "Номера";
             RoomTab.UseVisualStyleBackColor = true;
@@ -494,7 +496,7 @@
             BedroomTab.Location = new Point(4, 24);
             BedroomTab.Name = "BedroomTab";
             BedroomTab.Padding = new Padding(3);
-            BedroomTab.Size = new Size(700, 426);
+            BedroomTab.Size = new Size(694, 412);
             BedroomTab.TabIndex = 1;
             BedroomTab.Text = "Спальни";
             BedroomTab.UseVisualStyleBackColor = true;
@@ -507,7 +509,7 @@
             BedroomGrid.Name = "BedroomGrid";
             BedroomGrid.ReadOnly = true;
             BedroomGrid.RowTemplate.Height = 25;
-            BedroomGrid.Size = new Size(700, 432);
+            BedroomGrid.Size = new Size(673, 418);
             BedroomGrid.TabIndex = 0;
             BedroomGrid.DataBindingComplete += BedroomGrid_DataBindingComplete;
             BedroomGrid.SelectionChanged += BedroomGrid_SelectionChanged;
@@ -517,7 +519,7 @@
             BedTab.Controls.Add(BedGrid);
             BedTab.Location = new Point(4, 24);
             BedTab.Name = "BedTab";
-            BedTab.Size = new Size(700, 426);
+            BedTab.Size = new Size(694, 412);
             BedTab.TabIndex = 2;
             BedTab.Text = "Спальные места";
             BedTab.UseVisualStyleBackColor = true;
@@ -530,13 +532,13 @@
             BedGrid.Name = "BedGrid";
             BedGrid.ReadOnly = true;
             BedGrid.RowTemplate.Height = 25;
-            BedGrid.Size = new Size(700, 432);
+            BedGrid.Size = new Size(673, 418);
             BedGrid.TabIndex = 0;
             // 
             // CustomersButton
             // 
             CustomersButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            CustomersButton.Location = new Point(719, 202);
+            CustomersButton.Location = new Point(713, 202);
             CustomersButton.Name = "CustomersButton";
             CustomersButton.Size = new Size(176, 23);
             CustomersButton.TabIndex = 39;
@@ -547,9 +549,9 @@
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new ToolStripItem[] { CurrentCustomerLabel });
-            statusStrip1.Location = new Point(0, 550);
+            statusStrip1.Location = new Point(0, 536);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(907, 22);
+            statusStrip1.Size = new Size(901, 22);
             statusStrip1.TabIndex = 40;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -561,7 +563,8 @@
             // 
             // EditButton
             // 
-            EditButton.Location = new Point(719, 231);
+            EditButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            EditButton.Location = new Point(713, 231);
             EditButton.Name = "EditButton";
             EditButton.Size = new Size(176, 23);
             EditButton.TabIndex = 41;
@@ -571,7 +574,8 @@
             // 
             // AddButton
             // 
-            AddButton.Location = new Point(719, 260);
+            AddButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            AddButton.Location = new Point(713, 260);
             AddButton.Name = "AddButton";
             AddButton.Size = new Size(176, 23);
             AddButton.TabIndex = 42;
@@ -579,11 +583,35 @@
             AddButton.UseVisualStyleBackColor = true;
             AddButton.Click += AddButton_Click;
             // 
+            // AccomodationButton
+            // 
+            AccomodationButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            AccomodationButton.Location = new Point(713, 289);
+            AccomodationButton.Name = "AccomodationButton";
+            AccomodationButton.Size = new Size(176, 23);
+            AccomodationButton.TabIndex = 43;
+            AccomodationButton.Text = "Заселения";
+            AccomodationButton.UseVisualStyleBackColor = true;
+            AccomodationButton.Click += AccomodationButton_Click;
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button1.Location = new Point(713, 318);
+            button1.Name = "button1";
+            button1.Size = new Size(176, 23);
+            button1.TabIndex = 44;
+            button1.Text = "Заселения по комнате";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += RoomAccomodationButton_Click;
+            // 
             // RoomForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(907, 572);
+            ClientSize = new Size(901, 558);
+            Controls.Add(button1);
+            Controls.Add(AccomodationButton);
             Controls.Add(AddButton);
             Controls.Add(EditButton);
             Controls.Add(statusStrip1);
@@ -683,5 +711,7 @@
         private ToolStripStatusLabel CurrentCustomerLabel;
         private Button EditButton;
         private Button AddButton;
+        private Button AccomodationButton;
+        private Button button1;
     }
 }

@@ -33,13 +33,15 @@ namespace HostelApp.Persistence
 
             var accomodations = (await GetAccomodationsAsync())
                 .Where(acc =>
-            {
-                return acc.FromDate > toDate || acc.ToDate <= fromDate;
-            });
+                {
+                    return acc.FromDate < toDate && acc.ToDate > fromDate;
+                })
+                .Select(acc => acc.RoomId)
+                .ToHashSet();
 
             var result = rooms.Where(r =>
             {
-                return !accomodations.Any(acc => acc.RoomId == r.Id);
+                return !accomodations.Contains(r.Id);
             });
 
             return result.ToList();
@@ -48,7 +50,7 @@ namespace HostelApp.Persistence
         /// <summary>
         /// Создать заселение
         /// </summary>
-        public async Task CreateRoomAccomodation(
+        public async Task<Accomodation> CreateRoomAccomodationAsync(
             int roomId, 
             DateTime fromDate, 
             DateTime toDate,
@@ -57,20 +59,45 @@ namespace HostelApp.Persistence
             var clearFromDate = fromDate.Date;
             var clearToDate = toDate.Date;
 
-            var vacant = await GetVacantRooms(fromDate, toDate);
+            if (clearFromDate >= clearToDate)
+            {
+                throw new ApplicationException("Даты указаны неверно");
+            }
+
+            var vacant = await GetVacantRooms(clearFromDate, clearToDate);
 
             if (!vacant.Any(r => r.Id == roomId))
             {
-                throw new ApplicationException("Room is not vacant");
+                throw new ApplicationException($"Комната занята на даты {clearFromDate}-{clearToDate}");
             }
 
-            await AddAccomodationAsync(new Accomodation()
+            var customerConflictAccomodationExists = GetAccomodationsAsync()
+                .GetAwaiter()
+                .GetResult()
+                .Where(acc => acc.CustomerId == customerId
+                    && clearFromDate < acc.ToDate
+                    && clearToDate > acc.FromDate)
+                .Any();
+
+            if (customerConflictAccomodationExists)
+            {
+                throw new ApplicationException(
+                    $"Гость " +
+                    $"{GetCustomerAsync(customerId).GetAwaiter().GetResult()} " +
+                    $"уже имеет заселения на даты {clearFromDate}-{clearToDate}");
+            }
+
+            var acc = new Accomodation()
             {
                 CustomerId = customerId,
                 FromDate = clearFromDate,
                 ToDate = clearToDate,
                 RoomId = roomId
-            });
+            };
+
+            await AddAccomodationAsync(acc);
+
+            return acc;
         }
 
         /// <summary>

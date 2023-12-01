@@ -204,7 +204,7 @@ namespace HostelApp
 
             if (currentObject != null)
             {
-                var edit = new EditEntityForm(currentObject);                
+                var edit = new EditEntityForm(currentObject);
 
                 var result = edit.ShowDialog(this);
 
@@ -335,6 +335,28 @@ namespace HostelApp
             {
                 MessageBox.Show(this, "Данные не выбраны", "Ошибка");
             }
+        }
+
+        private void AccomodationButton_Click(object sender, EventArgs e)
+        {
+            var room = RoomGrid.CurrentRow.DataBoundItem as Room;
+
+            var form = new AccomodationForm(
+                defaultCustomer: _selectedCustomer,
+                defaultRoom: room);
+
+            form.ShowDialog(this);
+        }
+
+        private void RoomAccomodationButton_Click(object sender, EventArgs e)
+        {
+            var room = RoomGrid.CurrentRow.DataBoundItem as Room;
+
+            var form = new AccomodationForm(
+                filterRoom: room, 
+                defaultCustomer: _selectedCustomer);
+
+            form.ShowDialog(this);
         }
     }
 }

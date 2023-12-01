@@ -22,5 +22,10 @@ namespace HostelApp.Entities
 
         [DisplayName("Площадь")]
         public double Area { get; set; }
+
+        public override string? ToString()
+        {
+            return $"({Id}) {RoomType} №{Number} \"{Name}\"";
+        }
     }
 }

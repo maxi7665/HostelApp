@@ -14,5 +14,10 @@ namespace HostelApp.Entities
 
         [DisplayName("Возраст")]
         public int Age { get => DateTime.UtcNow.Year - BirthDate.Year; }
+
+        public override string? ToString()
+        {
+            return $"({Id}): {FullName}";
+        }
     }
 }
