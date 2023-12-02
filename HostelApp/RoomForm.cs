@@ -87,7 +87,10 @@ namespace HostelApp
                     (int)MinBathroomNumberField.Value,
                     (int)MaxBathroomNumberField.Value)
                 .AddBedRequirement(
-                    (int)OnePlaceBedNumberField.Value,
+                    1,
+                    (int)OnePlaceBedNumberField.Value)
+                .AddBedRequirement(
+                    2,
                     (int)TwoPlaceBedNumberField.Value)
                 .AddBedroomRequirement(
                     (int)MinBedroomNumberField.Value,
@@ -101,7 +104,8 @@ namespace HostelApp
 
             List<Room> rooms;
 
-            if (fromDate != DateTime.MinValue
+            if (IsOnlyVacantField.Checked
+                && fromDate != DateTime.MinValue
                 && toDate != DateTime.MinValue)
             {
                 rooms = await roomProvider.GetVacantRoomsAsync(
@@ -126,7 +130,7 @@ namespace HostelApp
 
                 context.SetDatabaseFullFileName(Path.GetTempFileName());
 
-                context.GenerateTestDataSet().GetAwaiter().GetResult();
+                context.GenerateTestDataSetAsync().GetAwaiter().GetResult();
             }
 
             ExecuteRoomQuery().GetAwaiter().GetResult();
@@ -353,10 +357,112 @@ namespace HostelApp
             var room = RoomGrid.CurrentRow.DataBoundItem as Room;
 
             var form = new AccomodationForm(
-                filterRoom: room, 
+                filterRoom: room,
                 defaultCustomer: _selectedCustomer);
 
             form.ShowDialog(this);
+        }
+
+        private void SelectDbButton_Click(object sender, EventArgs e)
+        {
+            var context = HostelDbContext.GetInstance();
+            var prevFileName = context.GetDatabaseFullFileName();
+
+            try
+            {               
+                context.SaveChanges().Wait();
+                context.SelectDatabaseFile().Wait();
+
+                ExecuteRoomQuery().Wait();
+            }
+            catch
+            {
+                context.SetDatabaseFullFileName(prevFileName);
+                ExecuteRoomQuery().Wait();
+
+                MessageBox.Show(this, "Ќе удалось открыть файл", "ќшибка");
+            }
+        }
+
+        private void SaveDbButton_Click(object sender, EventArgs e)
+        {
+            var context = HostelDbContext.GetInstance();
+
+            context.CopyDatabaseFile().Wait();
+        }
+
+        private void ClearDbButton_Click(object sender, EventArgs e)
+        {
+            var context = HostelDbContext.GetInstance();
+
+            context.ClearDatabaseFile().Wait();
+        }
+
+        private void TestBdButton_Click(object sender, EventArgs e)
+        {
+            var context = HostelDbContext.GetInstance();
+
+            context.ClearDatabaseFile().Wait();
+            context.GenerateTestDataSetAsync().Wait();
+            context.SaveChanges().Wait();
+
+            ExecuteRoomQuery().Wait();
+        }
+
+        private void IsVacantField_CheckedChanged(object sender, EventArgs e)
+        {
+            var value = IsOnlyVacantField.Checked;
+
+            if (value)
+            {
+                VacantCalendar.Enabled = true;
+            }
+            else
+            {
+                VacantCalendar.Enabled = false;
+            }
+
+            ExecuteRoomQuery().Wait();
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var context = HostelDbContext.GetInstance();
+
+                if (TabControl.SelectedTab == RoomTab)
+                {
+                    var entity = RoomGrid.CurrentRow.DataBoundItem as Room
+                        ?? throw new NullReferenceException("Ёлемент дл€ удалени€ не выбран");
+
+                    context.DeleteRoomAsync(entity.Id).Wait();
+                }
+                else if (TabControl.SelectedTab == BedroomTab)
+                {
+                    var entity = RoomGrid.CurrentRow.DataBoundItem as Bedroom
+                        ?? throw new NullReferenceException("Ёлемент дл€ удалени€ не выбран");
+
+                    context.DeleteBedroomAsync(entity.Id).Wait();
+                }
+                else if (TabControl.SelectedTab == BedTab)
+                {
+                    var entity = RoomGrid.CurrentRow.DataBoundItem as Bed
+                        ?? throw new NullReferenceException("Ёлемент дл€ удалени€ не выбран");
+
+                    context.DeleteBedAsync(entity.Id).Wait();
+                }
+                else
+                {
+                    throw new ApplicationException("Ёлемент дл€ удалени€ не выбран");
+                }
+
+                ExecuteRoomQuery().Wait();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "ќшибка");
+            }
         }
     }
 }

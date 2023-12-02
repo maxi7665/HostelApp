@@ -38,6 +38,7 @@
             RemoveButton = new Button();
             CancelSelectionButton = new Button();
             SelectButton = new Button();
+            AccomodationButton = new Button();
             ((System.ComponentModel.ISupportInitialize)CustomersGrid).BeginInit();
             SuspendLayout();
             // 
@@ -50,7 +51,7 @@
             CustomersGrid.Name = "CustomersGrid";
             CustomersGrid.ReadOnly = true;
             CustomersGrid.RowTemplate.Height = 25;
-            CustomersGrid.Size = new Size(440, 301);
+            CustomersGrid.Size = new Size(440, 263);
             CustomersGrid.TabIndex = 0;
             CustomersGrid.SelectionChanged += CustomersGrid_SelectionChanged;
             // 
@@ -140,11 +141,22 @@
             SelectButton.UseVisualStyleBackColor = true;
             SelectButton.Click += SelectButton_Click;
             // 
+            // AccomodationButton
+            // 
+            AccomodationButton.Location = new Point(12, 281);
+            AccomodationButton.Name = "AccomodationButton";
+            AccomodationButton.Size = new Size(75, 23);
+            AccomodationButton.TabIndex = 10;
+            AccomodationButton.Text = "Заселения";
+            AccomodationButton.UseVisualStyleBackColor = true;
+            AccomodationButton.Click += AccomodationButton_Click;
+            // 
             // CustomersForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(464, 486);
+            Controls.Add(AccomodationButton);
             Controls.Add(SelectButton);
             Controls.Add(CancelSelectionButton);
             Controls.Add(RemoveButton);
@@ -174,5 +186,6 @@
         private Button RemoveButton;
         private Button CancelSelectionButton;
         private Button SelectButton;
+        private Button AccomodationButton;
     }
 }

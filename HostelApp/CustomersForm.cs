@@ -182,5 +182,23 @@ namespace HostelApp
                 MessageBox.Show(this, "Невозможно выбрать пользователя", "Ошибка");
             }
         }
+
+        private void AccomodationButton_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                var customer = CustomersGrid.CurrentRow.DataBoundItem as Customer
+                    ?? throw new NullReferenceException("Гость не выбран!");
+
+                var accForm = new AccomodationForm(filterCustomer: customer);
+
+                accForm.ShowDialog(this);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Ошибка");
+            }
+        }
     }
 }

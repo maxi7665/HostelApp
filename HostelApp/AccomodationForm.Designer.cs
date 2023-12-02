@@ -211,7 +211,7 @@
             // 
             // AccomodationGrid
             // 
-            AccomodationGrid.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            AccomodationGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             AccomodationGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             AccomodationGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             AccomodationGrid.Location = new Point(0, 0);

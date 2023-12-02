@@ -16,7 +16,7 @@ namespace HostelApp.Persistence
 
         public string GetDatabaseFullFileName() => _databaseFullFileName;
 
-        public async Task SelectDatabaseFile()
+        public Task SelectDatabaseFile()
         {
             using OpenFileDialog openFileDialog = new OpenFileDialog();
 
@@ -27,9 +27,41 @@ namespace HostelApp.Persistence
             if (result == DialogResult.OK)
             {
                 _databaseFullFileName = openFileDialog.FileName;
-            }
+                _scheme = null;
+            }            
+
+            return Task.CompletedTask;
+        }
+
+        public async Task ClearDatabaseFile()
+        {
+            var fileName = GetDatabaseFullFileName();
+
+            File.Delete(fileName);
 
             await InitDatabase();
+
+            _scheme = null;
+
+            await FetchData();
+        }
+
+        public async Task CopyDatabaseFile()
+        {
+            await SaveChanges();
+
+            using OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.CheckFileExists = false;
+
+            var result = openFileDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                var saveFileName = openFileDialog.FileName;
+
+                File.Copy(GetDatabaseFullFileName(), saveFileName);
+            }
         }
 
         private Task InitDatabase()
@@ -62,22 +94,7 @@ namespace HostelApp.Persistence
             return _scheme;
         }
 
-        public async Task SaveChanges()
-        {
-            await SaveData();
-        }
-
-        private Task SaveData()
-        {
-            using var fileStream = new FileStream(
-                _databaseFullFileName,
-                FileMode.Open,
-                FileAccess.Write);
-
-            JsonSerializer.Serialize(fileStream, _scheme);
-
-            return Task.CompletedTask;
-        }
+        
 
         private async Task<List<T>> GetEntities<T>() where T : Entity
         {
@@ -183,6 +200,23 @@ namespace HostelApp.Persistence
                     }
                 }
             }
+        }
+
+        public async Task SaveChanges()
+        {
+            await SaveData();
+        }
+
+        private Task SaveData()
+        {
+            using var fileStream = new FileStream(
+                _databaseFullFileName,
+                FileMode.Open,
+                FileAccess.Write);
+
+            JsonSerializer.Serialize(fileStream, _scheme);
+
+            return Task.CompletedTask;
         }
 
         public WorkingSession BeginSession() => new WorkingSession(this);

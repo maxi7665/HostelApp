@@ -16,7 +16,7 @@ namespace HostelAppTest
 
             context.SetDatabaseFullFileName(tempFile);
 
-            await context.GenerateTestDataSet();
+            await context.GenerateTestDataSetAsync();
 
             Console.WriteLine(
                 JsonSerializer.Serialize(

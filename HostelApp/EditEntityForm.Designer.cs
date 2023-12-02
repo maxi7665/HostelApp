@@ -42,6 +42,7 @@
             // 
             // SaveButton
             // 
+            SaveButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             SaveButton.Location = new Point(160, 417);
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(75, 23);

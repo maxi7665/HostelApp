@@ -71,22 +71,6 @@ namespace HostelApp.Persistence
                 throw new ApplicationException($"Комната занята на даты {clearFromDate}-{clearToDate}");
             }
 
-            var customerConflictAccomodationExists = GetAccomodationsAsync()
-                .GetAwaiter()
-                .GetResult()
-                .Where(acc => acc.CustomerId == customerId
-                    && clearFromDate < acc.ToDate
-                    && clearToDate > acc.FromDate)
-                .Any();
-
-            if (customerConflictAccomodationExists)
-            {
-                throw new ApplicationException(
-                    $"Гость " +
-                    $"{GetCustomerAsync(customerId).GetAwaiter().GetResult()} " +
-                    $"уже имеет заселения на даты {clearFromDate}-{clearToDate}");
-            }
-
             var acc = new Accomodation()
             {
                 CustomerId = customerId,

@@ -59,7 +59,7 @@ namespace HostelApp
 
                 if (propertyType == typeof(double))
                 {
-                    numeric.Increment = (decimal) 0.01;
+                    numeric.Increment = (decimal)0.01;
                     numeric.DecimalPlaces = 2;
                 }
                 else
@@ -93,7 +93,7 @@ namespace HostelApp
                     picker.Format = DateTimePickerFormat.Short;
                 }
 
-                var dateTime = value != null ? (DateTime) value : DateTime.UtcNow.Date;
+                var dateTime = value != null ? (DateTime)value : DateTime.UtcNow.Date;
 
                 picker.Value = dateTime;
 
@@ -105,9 +105,9 @@ namespace HostelApp
 
         private void GetFromControls()
         {
-            foreach (var(name, control) in propertyNameControlMap)
+            foreach (var (name, control) in propertyNameControlMap)
             {
-                var prop = Entity.GetType().GetProperty(name) 
+                var prop = Entity.GetType().GetProperty(name)
                     ?? throw new NullReferenceException();
 
                 if (control is TextBox textBox)

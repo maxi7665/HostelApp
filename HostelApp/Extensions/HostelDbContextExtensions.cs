@@ -6,7 +6,7 @@ namespace HostelApp.Extensions
 {
     public static class HostelDbContextExtensions
     {
-        public static async Task GenerateTestDataSet(this HostelDbContext context)
+        public static async Task GenerateTestDataSetAsync(this HostelDbContext context)
         {
             if (string.IsNullOrWhiteSpace(context.GetDatabaseFullFileName()))
             {
@@ -21,11 +21,29 @@ namespace HostelApp.Extensions
 
             rooms.Clear();
 
+            for (int i = 0; i < 100; i++)
+            {
+                var customer = GenerateRandomCustomer();
+
+                await context.AddCustomerAsync(customer);
+            }
+
             for (int i = 0; i <= 100; i++)
             {
-                var room = GenerateRandomRoom();
+                var room = GenerateRandomRoom();                
 
                 await context.AddRoomAsync(room);
+
+                if (i % 2 == 0)
+                {
+                    var acc = GenerateRandomAccomodation(room.Id);
+
+                    await context.CreateRoomAccomodationAsync(
+                        acc.RoomId, 
+                        acc.FromDate, 
+                        acc.ToDate, 
+                        acc.CustomerId);
+                }
 
                 var bedrooms = GenerateRandomBedroomList(room.Area);
 
@@ -44,14 +62,7 @@ namespace HostelApp.Extensions
                         await context.AddBedAsync(bed);
                     });
                 });
-            }
-        
-            for (int i = 0; i < 100; i++)
-            {
-                var customer = GenerateRandomCustomer();
-
-                await context.AddCustomerAsync(customer);
-            }
+            }                  
         }
 
         private static Room GenerateRandomRoom()
@@ -185,7 +196,7 @@ namespace HostelApp.Extensions
             "Андреевич",
             "Егорович",
             "Дмитриевич",
-            "Максимвович",
+            "Максимович",
             "Иванович"
         };
 
@@ -198,6 +209,32 @@ namespace HostelApp.Extensions
                 $"{SECOND_NAMES[random.Next(0, SECOND_NAMES.Length)]}";
 
             return fullName;
+        }
+
+        private static Accomodation GenerateRandomAccomodation(int roomId)
+        {
+            var random = new Random();
+
+            var customers = HostelDbContext
+                .GetInstance()
+                .GetCustomersAsync()
+                .GetAwaiter()
+                .GetResult();
+
+            var onDate = DateTime.UtcNow.Date;
+
+            var fromDateOffset = random.Next(0, 20) - 10;
+            var accomodationLength = random.Next(1, 20);
+
+            var acc = new Accomodation()
+            {
+                RoomId = roomId,
+                CustomerId = customers[random.Next(0, customers.Count)].Id,
+                FromDate = onDate.AddDays(fromDateOffset),
+                ToDate = onDate.AddDays(fromDateOffset).AddDays(accomodationLength)
+            };
+
+            return acc;
         }
     }
 }

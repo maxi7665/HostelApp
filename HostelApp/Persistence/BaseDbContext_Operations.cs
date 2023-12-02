@@ -25,7 +25,7 @@ namespace HostelApp.Persistence
             await DeleteEntity<Room>(id);
 
             (await GetRoomBedroomsAsync(id))
-                .ForEach(async b => await DeleteBedroomAsync(id));            
+                .ForEach(async b => await DeleteBedroomAsync(b.Id));            
         }
 
 

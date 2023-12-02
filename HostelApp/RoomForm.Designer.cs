@@ -63,7 +63,7 @@
             splitContainer1 = new SplitContainer();
             panel1 = new Panel();
             VacantCalendar = new MonthCalendar();
-            IsVacantField = new CheckBox();
+            IsOnlyVacantField = new CheckBox();
             TabControl = new TabControl();
             RoomTab = new TabPage();
             BedroomTab = new TabPage();
@@ -76,7 +76,12 @@
             EditButton = new Button();
             AddButton = new Button();
             AccomodationButton = new Button();
-            button1 = new Button();
+            RoomAccomodationButton = new Button();
+            SelectDbButton = new Button();
+            SaveDbButton = new Button();
+            ClearDbButton = new Button();
+            TestBdButton = new Button();
+            DeleteButton = new Button();
             ((System.ComponentModel.ISupportInitialize)RoomGrid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MinCapacityField).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MaxCapacityField).BeginInit();
@@ -443,7 +448,7 @@
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(VacantCalendar);
-            panel1.Controls.Add(IsVacantField);
+            panel1.Controls.Add(IsOnlyVacantField);
             panel1.Location = new Point(709, 5);
             panel1.Name = "panel1";
             panel1.Size = new Size(180, 190);
@@ -451,21 +456,23 @@
             // 
             // VacantCalendar
             // 
+            VacantCalendar.Enabled = false;
             VacantCalendar.Location = new Point(9, 22);
             VacantCalendar.MaxSelectionCount = 31;
             VacantCalendar.Name = "VacantCalendar";
             VacantCalendar.TabIndex = 1;
             VacantCalendar.DateSelected += monthCalendar1_DateChanged;
             // 
-            // IsVacantField
+            // IsOnlyVacantField
             // 
-            IsVacantField.AutoSize = true;
-            IsVacantField.Location = new Point(5, 3);
-            IsVacantField.Name = "IsVacantField";
-            IsVacantField.Size = new Size(151, 19);
-            IsVacantField.TabIndex = 0;
-            IsVacantField.Text = "Доступно к заселению";
-            IsVacantField.UseVisualStyleBackColor = true;
+            IsOnlyVacantField.AutoSize = true;
+            IsOnlyVacantField.Location = new Point(5, 3);
+            IsOnlyVacantField.Name = "IsOnlyVacantField";
+            IsOnlyVacantField.Size = new Size(151, 19);
+            IsOnlyVacantField.TabIndex = 0;
+            IsOnlyVacantField.Text = "Доступно к заселению";
+            IsOnlyVacantField.UseVisualStyleBackColor = true;
+            IsOnlyVacantField.CheckedChanged += IsVacantField_CheckedChanged;
             // 
             // TabControl
             // 
@@ -586,7 +593,7 @@
             // AccomodationButton
             // 
             AccomodationButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            AccomodationButton.Location = new Point(713, 289);
+            AccomodationButton.Location = new Point(713, 318);
             AccomodationButton.Name = "AccomodationButton";
             AccomodationButton.Size = new Size(176, 23);
             AccomodationButton.TabIndex = 43;
@@ -594,23 +601,83 @@
             AccomodationButton.UseVisualStyleBackColor = true;
             AccomodationButton.Click += AccomodationButton_Click;
             // 
-            // button1
+            // RoomAccomodationButton
             // 
-            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.Location = new Point(713, 318);
-            button1.Name = "button1";
-            button1.Size = new Size(176, 23);
-            button1.TabIndex = 44;
-            button1.Text = "Заселения по комнате";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += RoomAccomodationButton_Click;
+            RoomAccomodationButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            RoomAccomodationButton.Location = new Point(713, 347);
+            RoomAccomodationButton.Name = "RoomAccomodationButton";
+            RoomAccomodationButton.Size = new Size(176, 23);
+            RoomAccomodationButton.TabIndex = 44;
+            RoomAccomodationButton.Text = "Заселения по комнате";
+            RoomAccomodationButton.UseVisualStyleBackColor = true;
+            RoomAccomodationButton.Click += RoomAccomodationButton_Click;
+            // 
+            // SelectDbButton
+            // 
+            SelectDbButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SelectDbButton.Location = new Point(713, 376);
+            SelectDbButton.Name = "SelectDbButton";
+            SelectDbButton.Size = new Size(176, 23);
+            SelectDbButton.TabIndex = 45;
+            SelectDbButton.Text = "Выбрать файл БД";
+            SelectDbButton.UseVisualStyleBackColor = true;
+            SelectDbButton.Click += SelectDbButton_Click;
+            // 
+            // SaveDbButton
+            // 
+            SaveDbButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SaveDbButton.Location = new Point(713, 405);
+            SaveDbButton.Name = "SaveDbButton";
+            SaveDbButton.Size = new Size(176, 23);
+            SaveDbButton.TabIndex = 46;
+            SaveDbButton.Text = "Экспорт БД";
+            SaveDbButton.UseVisualStyleBackColor = true;
+            SaveDbButton.Click += SaveDbButton_Click;
+            // 
+            // ClearDbButton
+            // 
+            ClearDbButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            ClearDbButton.Location = new Point(713, 434);
+            ClearDbButton.Name = "ClearDbButton";
+            ClearDbButton.Size = new Size(176, 23);
+            ClearDbButton.TabIndex = 47;
+            ClearDbButton.Text = "Очистить БД";
+            ClearDbButton.UseVisualStyleBackColor = true;
+            ClearDbButton.Click += ClearDbButton_Click;
+            // 
+            // TestBdButton
+            // 
+            TestBdButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            TestBdButton.Location = new Point(713, 463);
+            TestBdButton.Name = "TestBdButton";
+            TestBdButton.Size = new Size(176, 23);
+            TestBdButton.TabIndex = 48;
+            TestBdButton.Text = "Тестовая БД";
+            TestBdButton.UseVisualStyleBackColor = true;
+            TestBdButton.Click += TestBdButton_Click;
+            // 
+            // DeleteButton
+            // 
+            DeleteButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            DeleteButton.Location = new Point(713, 289);
+            DeleteButton.Name = "DeleteButton";
+            DeleteButton.Size = new Size(176, 23);
+            DeleteButton.TabIndex = 49;
+            DeleteButton.Text = "Удалить";
+            DeleteButton.UseVisualStyleBackColor = true;
+            DeleteButton.Click += DeleteButton_Click;
             // 
             // RoomForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(901, 558);
-            Controls.Add(button1);
+            Controls.Add(DeleteButton);
+            Controls.Add(TestBdButton);
+            Controls.Add(ClearDbButton);
+            Controls.Add(SaveDbButton);
+            Controls.Add(SelectDbButton);
+            Controls.Add(RoomAccomodationButton);
             Controls.Add(AccomodationButton);
             Controls.Add(AddButton);
             Controls.Add(EditButton);
@@ -698,7 +765,7 @@
         private Label label18;
         private SplitContainer splitContainer1;
         private Panel panel1;
-        private CheckBox IsVacantField;
+        private CheckBox IsOnlyVacantField;
         private MonthCalendar VacantCalendar;
         private TabControl TabControl;
         private TabPage RoomTab;
@@ -712,6 +779,11 @@
         private Button EditButton;
         private Button AddButton;
         private Button AccomodationButton;
-        private Button button1;
+        private Button RoomAccomodationButton;
+        private Button SelectDbButton;
+        private Button SaveDbButton;
+        private Button ClearDbButton;
+        private Button TestBdButton;
+        private Button DeleteButton;
     }
 }
