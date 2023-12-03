@@ -29,45 +29,7 @@ namespace HostelApp
         public RoomForm()
         {
             InitializeComponent();
-        }
-
-        private async Task ExecuteBedroomQuery()
-        {
-            var dataSource = Enumerable.Empty<Bedroom>().ToList();
-
-            if (RoomGrid.CurrentRow != null)
-            {
-                var room = RoomGrid.CurrentRow.DataBoundItem as Room;
-
-                if (room != null)
-                {
-                    dataSource = await HostelDbContext
-                        .GetInstance()
-                        .GetRoomBedroomsAsync(room.Id);
-                }
-            }
-
-            BedroomGrid.DataSource = dataSource;
-        }
-
-        private async Task ExecuteBedQuery()
-        {
-            var dataSource = Enumerable.Empty<Bed>().ToList();
-
-            if (BedroomGrid.CurrentRow != null)
-            {
-                var bedroom = BedroomGrid.CurrentRow.DataBoundItem as Bedroom;
-
-                if (bedroom != null)
-                {
-                    dataSource = await HostelDbContext
-                        .GetInstance()
-                        .GetBedroomBedsAsync(bedroom.Id);
-                }
-            }
-
-            BedGrid.DataSource = dataSource;
-        }
+        }        
 
         private async Task ExecuteRoomQuery()
         {
@@ -118,6 +80,44 @@ namespace HostelApp
             }
 
             RoomGrid.DataSource = rooms;
+        }
+
+        private async Task ExecuteBedroomQuery()
+        {
+            var dataSource = Enumerable.Empty<Bedroom>().ToList();
+
+            if (RoomGrid.CurrentRow != null)
+            {
+                var room = RoomGrid.CurrentRow.DataBoundItem as Room;
+
+                if (room != null)
+                {
+                    dataSource = await HostelDbContext
+                        .GetInstance()
+                        .GetRoomBedroomsAsync(room.Id);
+                }
+            }
+
+            BedroomGrid.DataSource = dataSource;
+        }
+
+        private async Task ExecuteBedQuery()
+        {
+            var dataSource = Enumerable.Empty<Bed>().ToList();
+
+            if (BedroomGrid.CurrentRow != null)
+            {
+                var bedroom = BedroomGrid.CurrentRow.DataBoundItem as Bedroom;
+
+                if (bedroom != null)
+                {
+                    dataSource = await HostelDbContext
+                        .GetInstance()
+                        .GetBedroomBedsAsync(bedroom.Id);
+                }
+            }
+
+            BedGrid.DataSource = dataSource;
         }
 
         private void RoomForm_Load(object sender, EventArgs e)
@@ -309,29 +309,32 @@ namespace HostelApp
                     {
                         if (currentGrid == RoomGrid)
                         {
-                            HostelDbContext.GetInstance().AddRoomAsync((Room)currentObject).GetAwaiter().GetResult();
+                            HostelDbContext.GetInstance()
+                                .AddRoomAsync((Room)currentObject).Wait();
                         }
                         else if (currentGrid == BedroomGrid)
                         {
-                            HostelDbContext.GetInstance().AddBedroomAsync((Bedroom)currentObject).GetAwaiter().GetResult();
+                            HostelDbContext.GetInstance()
+                                .AddBedroomAsync((Bedroom)currentObject).Wait();
                         }
                         else if (currentGrid == BedGrid)
                         {
-                            HostelDbContext.GetInstance().AddBedAsync((Bed)currentObject).GetAwaiter().GetResult();
+                            HostelDbContext.GetInstance()
+                                .AddBedAsync((Bed)currentObject).Wait();
                         }
                     }
 
                     if (currentGrid == RoomGrid)
                     {
-                        ExecuteRoomQuery().GetAwaiter().GetResult();
+                        ExecuteRoomQuery().Wait();
                     }
                     else if (currentGrid == BedroomGrid)
                     {
-                        ExecuteBedroomQuery().GetAwaiter().GetResult();
+                        ExecuteBedroomQuery().Wait();
                     }
                     else if (currentGrid == BedGrid)
                     {
-                        ExecuteBedQuery().GetAwaiter().GetResult();
+                        ExecuteBedQuery().Wait();
                     }
                 }
             }
@@ -386,27 +389,50 @@ namespace HostelApp
 
         private void SaveDbButton_Click(object sender, EventArgs e)
         {
-            var context = HostelDbContext.GetInstance();
+            try
+            {
+                var context = HostelDbContext.GetInstance();
 
-            context.CopyDatabaseFile().Wait();
+                context.CopyDatabaseFile().Wait();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "ќшибка");
+            }
         }
 
         private void ClearDbButton_Click(object sender, EventArgs e)
         {
-            var context = HostelDbContext.GetInstance();
+            try
+            {
+                var context = HostelDbContext.GetInstance();
 
-            context.ClearDatabaseFile().Wait();
+                context.ClearDatabaseFile().Wait();
+
+                ExecuteRoomQuery().Wait();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "ќшибка");
+            }
         }
 
         private void TestBdButton_Click(object sender, EventArgs e)
         {
-            var context = HostelDbContext.GetInstance();
+            try
+            {
+                var context = HostelDbContext.GetInstance();
 
-            context.ClearDatabaseFile().Wait();
-            context.GenerateTestDataSetAsync().Wait();
-            context.SaveChanges().Wait();
+                context.ClearDatabaseFile().Wait();
+                context.GenerateTestDataSetAsync().Wait();
+                context.SaveChanges().Wait();
 
-            ExecuteRoomQuery().Wait();
+                ExecuteRoomQuery().Wait();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "ќшибка");
+            }
         }
 
         private void IsVacantField_CheckedChanged(object sender, EventArgs e)
@@ -440,14 +466,14 @@ namespace HostelApp
                 }
                 else if (TabControl.SelectedTab == BedroomTab)
                 {
-                    var entity = RoomGrid.CurrentRow.DataBoundItem as Bedroom
+                    var entity = BedroomGrid.CurrentRow.DataBoundItem as Bedroom
                         ?? throw new NullReferenceException("Ёлемент дл€ удалени€ не выбран");
 
                     context.DeleteBedroomAsync(entity.Id).Wait();
                 }
                 else if (TabControl.SelectedTab == BedTab)
                 {
-                    var entity = RoomGrid.CurrentRow.DataBoundItem as Bed
+                    var entity = BedGrid.CurrentRow.DataBoundItem as Bed
                         ?? throw new NullReferenceException("Ёлемент дл€ удалени€ не выбран");
 
                     context.DeleteBedAsync(entity.Id).Wait();

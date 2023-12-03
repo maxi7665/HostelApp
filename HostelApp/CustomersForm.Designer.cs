@@ -57,6 +57,7 @@
             // 
             // BirthdayPicker
             // 
+            BirthdayPicker.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             BirthdayPicker.Format = DateTimePickerFormat.Short;
             BirthdayPicker.Location = new Point(131, 358);
             BirthdayPicker.Name = "BirthdayPicker";
@@ -65,6 +66,7 @@
             // 
             // NameField
             // 
+            NameField.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             NameField.Location = new Point(131, 319);
             NameField.Name = "NameField";
             NameField.Size = new Size(270, 23);
@@ -72,6 +74,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
             label1.Location = new Point(28, 322);
             label1.Name = "label1";
@@ -81,6 +84,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label2.AutoSize = true;
             label2.Location = new Point(28, 364);
             label2.Name = "label2";
@@ -123,6 +127,7 @@
             // 
             // CancelSelectionButton
             // 
+            CancelSelectionButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             CancelSelectionButton.Location = new Point(313, 451);
             CancelSelectionButton.Name = "CancelSelectionButton";
             CancelSelectionButton.Size = new Size(75, 23);
@@ -133,6 +138,7 @@
             // 
             // SelectButton
             // 
+            SelectButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             SelectButton.Location = new Point(91, 451);
             SelectButton.Name = "SelectButton";
             SelectButton.Size = new Size(75, 23);
@@ -143,6 +149,7 @@
             // 
             // AccomodationButton
             // 
+            AccomodationButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             AccomodationButton.Location = new Point(12, 281);
             AccomodationButton.Name = "AccomodationButton";
             AccomodationButton.Size = new Size(75, 23);

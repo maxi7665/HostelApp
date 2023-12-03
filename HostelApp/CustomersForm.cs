@@ -114,16 +114,14 @@ namespace HostelApp
                 customer.Id = selectedCustomer.Id;
 
                 HostelDbContext.GetInstance()
-                    .UpdateCustomerAsync(customer)
-                    .GetAwaiter()
-                    .GetResult();
+                    .UpdateCustomerAsync(customer).Wait();
 
                 if (customer.Id > 0)
                 {
                     currentCustomer = customer;
                 }
 
-                ExecuteCustomersQuery().GetAwaiter().GetResult();
+                ExecuteCustomersQuery().Wait();
             }
             catch (Exception ex)
             {
@@ -150,7 +148,7 @@ namespace HostelApp
                     .GetAwaiter()
                     .GetResult();
 
-                ExecuteCustomersQuery().GetAwaiter().GetResult();
+                ExecuteCustomersQuery().Wait();
             }
             catch (Exception ex)
             {

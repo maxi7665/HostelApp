@@ -26,9 +26,6 @@ namespace HostelApp
                 var control = GetControlByProperty(prop, prop.GetValue(Entity));
 
                 MainContentLayoutPanel.Controls.Add(label);
-
-                //MainContentLayoutPanel.SetFlowBreak(label, true);
-
                 MainContentLayoutPanel.Controls.Add(control);
 
                 MainContentLayoutPanel.SetFlowBreak(control, true);
