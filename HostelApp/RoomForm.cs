@@ -29,7 +29,7 @@ namespace HostelApp
         public RoomForm()
         {
             InitializeComponent();
-        }        
+        }
 
         private async Task ExecuteRoomQuery()
         {
@@ -372,7 +372,7 @@ namespace HostelApp
             var prevFileName = context.GetDatabaseFullFileName();
 
             try
-            {               
+            {
                 context.SaveChanges().Wait();
                 context.SelectDatabaseFile().Wait();
 

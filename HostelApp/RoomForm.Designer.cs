@@ -118,10 +118,12 @@
             RoomGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             RoomGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             RoomGrid.Location = new Point(-3, 0);
+            RoomGrid.Margin = new Padding(3, 4, 3, 4);
             RoomGrid.Name = "RoomGrid";
             RoomGrid.ReadOnly = true;
+            RoomGrid.RowHeadersWidth = 51;
             RoomGrid.RowTemplate.Height = 25;
-            RoomGrid.Size = new Size(697, 412);
+            RoomGrid.Size = new Size(797, 549);
             RoomGrid.TabIndex = 0;
             RoomGrid.CellContentClick += RoomGrid_CellContentClick;
             RoomGrid.DataBindingComplete += RoomGrid_DataBindingComplete;
@@ -130,284 +132,298 @@
             // RoomTypeField
             // 
             RoomTypeField.FormattingEnabled = true;
-            RoomTypeField.Location = new Point(5, 20);
+            RoomTypeField.Location = new Point(6, 27);
+            RoomTypeField.Margin = new Padding(3, 4, 3, 4);
             RoomTypeField.Name = "RoomTypeField";
-            RoomTypeField.Size = new Size(114, 23);
+            RoomTypeField.Size = new Size(130, 28);
             RoomTypeField.TabIndex = 1;
             RoomTypeField.SelectedValueChanged += FilterChanged;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(5, 4);
+            label1.Location = new Point(6, 5);
             label1.Name = "label1";
-            label1.Size = new Size(39, 15);
+            label1.Size = new Size(48, 20);
             label1.TabIndex = 2;
             label1.Text = "Класс";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(6, 46);
+            label2.Location = new Point(7, 61);
             label2.Name = "label2";
-            label2.Size = new Size(94, 15);
+            label2.Size = new Size(118, 20);
             label2.TabIndex = 5;
             label2.Text = "Кол-во человек";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(6, 67);
+            label3.Location = new Point(7, 89);
             label3.Name = "label3";
-            label3.Size = new Size(21, 15);
+            label3.Size = new Size(26, 20);
             label3.TabIndex = 6;
             label3.Text = "От";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(76, 67);
+            label4.Location = new Point(87, 89);
             label4.Name = "label4";
-            label4.Size = new Size(22, 15);
+            label4.Size = new Size(28, 20);
             label4.TabIndex = 7;
             label4.Text = "До";
             // 
             // MinCapacityField
             // 
-            MinCapacityField.Location = new Point(27, 64);
+            MinCapacityField.Location = new Point(31, 85);
+            MinCapacityField.Margin = new Padding(3, 4, 3, 4);
             MinCapacityField.Name = "MinCapacityField";
-            MinCapacityField.Size = new Size(47, 23);
+            MinCapacityField.Size = new Size(54, 27);
             MinCapacityField.TabIndex = 10;
             MinCapacityField.ValueChanged += FilterChanged;
             // 
             // MaxCapacityField
             // 
-            MaxCapacityField.Location = new Point(104, 64);
+            MaxCapacityField.Location = new Point(119, 85);
+            MaxCapacityField.Margin = new Padding(3, 4, 3, 4);
             MaxCapacityField.Name = "MaxCapacityField";
-            MaxCapacityField.Size = new Size(47, 23);
+            MaxCapacityField.Size = new Size(54, 27);
             MaxCapacityField.TabIndex = 11;
             MaxCapacityField.ValueChanged += FilterChanged;
             // 
             // OnePlaceBedNumberField
             // 
-            OnePlaceBedNumberField.Location = new Point(273, 21);
+            OnePlaceBedNumberField.Location = new Point(312, 28);
+            OnePlaceBedNumberField.Margin = new Padding(3, 4, 3, 4);
             OnePlaceBedNumberField.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             OnePlaceBedNumberField.Name = "OnePlaceBedNumberField";
-            OnePlaceBedNumberField.Size = new Size(47, 23);
+            OnePlaceBedNumberField.Size = new Size(54, 27);
             OnePlaceBedNumberField.TabIndex = 12;
             OnePlaceBedNumberField.ValueChanged += FilterChanged;
             // 
             // TwoPlaceBedNumberField
             // 
-            TwoPlaceBedNumberField.Location = new Point(272, 50);
+            TwoPlaceBedNumberField.Location = new Point(311, 67);
+            TwoPlaceBedNumberField.Margin = new Padding(3, 4, 3, 4);
             TwoPlaceBedNumberField.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             TwoPlaceBedNumberField.Name = "TwoPlaceBedNumberField";
-            TwoPlaceBedNumberField.Size = new Size(47, 23);
+            TwoPlaceBedNumberField.Size = new Size(54, 27);
             TwoPlaceBedNumberField.TabIndex = 13;
             TwoPlaceBedNumberField.ValueChanged += FilterChanged;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(188, 23);
+            label5.Location = new Point(215, 31);
             label5.Name = "label5";
-            label5.Size = new Size(78, 15);
+            label5.Size = new Size(99, 20);
             label5.TabIndex = 14;
             label5.Text = "1-сп кровати";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(188, 52);
+            label6.Location = new Point(215, 69);
             label6.Name = "label6";
-            label6.Size = new Size(78, 15);
+            label6.Size = new Size(99, 20);
             label6.TabIndex = 15;
             label6.Text = "2-сп кровати";
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(14, -1);
+            label7.Location = new Point(16, -1);
             label7.Name = "label7";
-            label7.Size = new Size(34, 15);
+            label7.Size = new Size(43, 20);
             label7.TabIndex = 16;
             label7.Text = "Этаж";
             // 
             // MaxFloorNumberField
             // 
-            MaxFloorNumberField.Location = new Point(112, 17);
+            MaxFloorNumberField.Location = new Point(128, 23);
+            MaxFloorNumberField.Margin = new Padding(3, 4, 3, 4);
             MaxFloorNumberField.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
             MaxFloorNumberField.Name = "MaxFloorNumberField";
-            MaxFloorNumberField.Size = new Size(47, 23);
+            MaxFloorNumberField.Size = new Size(54, 27);
             MaxFloorNumberField.TabIndex = 20;
             MaxFloorNumberField.ValueChanged += FilterChanged;
             // 
             // MinFloorNumberField
             // 
-            MinFloorNumberField.Location = new Point(35, 17);
+            MinFloorNumberField.Location = new Point(40, 23);
+            MinFloorNumberField.Margin = new Padding(3, 4, 3, 4);
             MinFloorNumberField.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
             MinFloorNumberField.Name = "MinFloorNumberField";
-            MinFloorNumberField.Size = new Size(47, 23);
+            MinFloorNumberField.Size = new Size(54, 27);
             MinFloorNumberField.TabIndex = 19;
             MinFloorNumberField.ValueChanged += FilterChanged;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(84, 20);
+            label8.Location = new Point(96, 27);
             label8.Name = "label8";
-            label8.Size = new Size(22, 15);
+            label8.Size = new Size(28, 20);
             label8.TabIndex = 18;
             label8.Text = "До";
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(14, 20);
+            label9.Location = new Point(16, 27);
             label9.Name = "label9";
-            label9.Size = new Size(21, 15);
+            label9.Size = new Size(26, 20);
             label9.TabIndex = 17;
             label9.Text = "От";
             // 
             // MaxAreaField
             // 
-            MaxAreaField.Location = new Point(112, 55);
+            MaxAreaField.Location = new Point(128, 73);
+            MaxAreaField.Margin = new Padding(3, 4, 3, 4);
             MaxAreaField.Maximum = new decimal(new int[] { 150, 0, 0, 0 });
             MaxAreaField.Name = "MaxAreaField";
-            MaxAreaField.Size = new Size(47, 23);
+            MaxAreaField.Size = new Size(54, 27);
             MaxAreaField.TabIndex = 25;
             MaxAreaField.ValueChanged += FilterChanged;
             // 
             // MinAreaField
             // 
-            MinAreaField.Location = new Point(35, 55);
+            MinAreaField.Location = new Point(40, 73);
+            MinAreaField.Margin = new Padding(3, 4, 3, 4);
             MinAreaField.Maximum = new decimal(new int[] { 150, 0, 0, 0 });
             MinAreaField.Name = "MinAreaField";
-            MinAreaField.Size = new Size(47, 23);
+            MinAreaField.Size = new Size(54, 27);
             MinAreaField.TabIndex = 24;
             MinAreaField.ValueChanged += FilterChanged;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(84, 58);
+            label10.Location = new Point(96, 77);
             label10.Name = "label10";
-            label10.Size = new Size(22, 15);
+            label10.Size = new Size(28, 20);
             label10.TabIndex = 23;
             label10.Text = "До";
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(14, 58);
+            label11.Location = new Point(16, 77);
             label11.Name = "label11";
-            label11.Size = new Size(21, 15);
+            label11.Size = new Size(26, 20);
             label11.TabIndex = 22;
             label11.Text = "От";
             // 
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(14, 37);
+            label12.Location = new Point(16, 49);
             label12.Name = "label12";
-            label12.Size = new Size(59, 15);
+            label12.Size = new Size(73, 20);
             label12.TabIndex = 21;
             label12.Text = "Площадь";
             // 
             // MaxBathroomNumberField
             // 
-            MaxBathroomNumberField.Location = new Point(118, 55);
+            MaxBathroomNumberField.Location = new Point(135, 73);
+            MaxBathroomNumberField.Margin = new Padding(3, 4, 3, 4);
             MaxBathroomNumberField.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             MaxBathroomNumberField.Name = "MaxBathroomNumberField";
-            MaxBathroomNumberField.Size = new Size(47, 23);
+            MaxBathroomNumberField.Size = new Size(54, 27);
             MaxBathroomNumberField.TabIndex = 30;
             MaxBathroomNumberField.ValueChanged += FilterChanged;
             // 
             // MinBathroomNumberField
             // 
-            MinBathroomNumberField.Location = new Point(41, 55);
+            MinBathroomNumberField.Location = new Point(47, 73);
+            MinBathroomNumberField.Margin = new Padding(3, 4, 3, 4);
             MinBathroomNumberField.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             MinBathroomNumberField.Name = "MinBathroomNumberField";
-            MinBathroomNumberField.Size = new Size(47, 23);
+            MinBathroomNumberField.Size = new Size(54, 27);
             MinBathroomNumberField.TabIndex = 29;
             MinBathroomNumberField.ValueChanged += FilterChanged;
             // 
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(90, 61);
+            label13.Location = new Point(103, 81);
             label13.Name = "label13";
-            label13.Size = new Size(22, 15);
+            label13.Size = new Size(28, 20);
             label13.TabIndex = 28;
             label13.Text = "До";
             // 
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(20, 61);
+            label14.Location = new Point(23, 81);
             label14.Name = "label14";
-            label14.Size = new Size(21, 15);
+            label14.Size = new Size(26, 20);
             label14.TabIndex = 27;
             label14.Text = "От";
             // 
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(20, 40);
+            label15.Location = new Point(23, 53);
             label15.Name = "label15";
-            label15.Size = new Size(49, 15);
+            label15.Size = new Size(63, 20);
             label15.TabIndex = 26;
             label15.Text = "Ванные";
             // 
             // MaxBedroomNumberField
             // 
-            MaxBedroomNumberField.Location = new Point(118, 18);
+            MaxBedroomNumberField.Location = new Point(135, 24);
+            MaxBedroomNumberField.Margin = new Padding(3, 4, 3, 4);
             MaxBedroomNumberField.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             MaxBedroomNumberField.Name = "MaxBedroomNumberField";
-            MaxBedroomNumberField.Size = new Size(47, 23);
+            MaxBedroomNumberField.Size = new Size(54, 27);
             MaxBedroomNumberField.TabIndex = 35;
             MaxBedroomNumberField.ValueChanged += FilterChanged;
             // 
             // MinBedroomNumberField
             // 
-            MinBedroomNumberField.Location = new Point(41, 18);
+            MinBedroomNumberField.Location = new Point(47, 24);
+            MinBedroomNumberField.Margin = new Padding(3, 4, 3, 4);
             MinBedroomNumberField.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             MinBedroomNumberField.Name = "MinBedroomNumberField";
-            MinBedroomNumberField.Size = new Size(47, 23);
+            MinBedroomNumberField.Size = new Size(54, 27);
             MinBedroomNumberField.TabIndex = 34;
             MinBedroomNumberField.ValueChanged += FilterChanged;
             // 
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(90, 21);
+            label16.Location = new Point(103, 28);
             label16.Name = "label16";
-            label16.Size = new Size(22, 15);
+            label16.Size = new Size(28, 20);
             label16.TabIndex = 33;
             label16.Text = "До";
             // 
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(20, 21);
+            label17.Location = new Point(23, 28);
             label17.Name = "label17";
-            label17.Size = new Size(21, 15);
+            label17.Size = new Size(26, 20);
             label17.TabIndex = 32;
             label17.Text = "От";
             // 
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(20, 0);
+            label18.Location = new Point(23, 0);
             label18.Name = "label18";
-            label18.Size = new Size(55, 15);
+            label18.Size = new Size(69, 20);
             label18.TabIndex = 31;
             label18.Text = "Спальни";
             // 
             // splitContainer1
             // 
             splitContainer1.BorderStyle = BorderStyle.FixedSingle;
-            splitContainer1.Location = new Point(157, 4);
+            splitContainer1.Location = new Point(179, 5);
+            splitContainer1.Margin = new Padding(3, 4, 3, 4);
             splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -439,8 +455,9 @@
             splitContainer1.Panel2.Controls.Add(label13);
             splitContainer1.Panel2.Controls.Add(label15);
             splitContainer1.Panel2.Controls.Add(label14);
-            splitContainer1.Size = new Size(548, 83);
-            splitContainer1.SplitterDistance = 185;
+            splitContainer1.Size = new Size(626, 111);
+            splitContainer1.SplitterDistance = 210;
+            splitContainer1.SplitterWidth = 5;
             splitContainer1.TabIndex = 36;
             // 
             // panel1
@@ -449,15 +466,17 @@
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(VacantCalendar);
             panel1.Controls.Add(IsOnlyVacantField);
-            panel1.Location = new Point(709, 5);
+            panel1.Location = new Point(810, 7);
+            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(180, 190);
+            panel1.Size = new Size(205, 253);
             panel1.TabIndex = 37;
             // 
             // VacantCalendar
             // 
             VacantCalendar.Enabled = false;
-            VacantCalendar.Location = new Point(9, 22);
+            VacantCalendar.Location = new Point(10, 29);
+            VacantCalendar.Margin = new Padding(10, 12, 10, 12);
             VacantCalendar.MaxSelectionCount = 31;
             VacantCalendar.Name = "VacantCalendar";
             VacantCalendar.TabIndex = 1;
@@ -466,9 +485,10 @@
             // IsOnlyVacantField
             // 
             IsOnlyVacantField.AutoSize = true;
-            IsOnlyVacantField.Location = new Point(5, 3);
+            IsOnlyVacantField.Location = new Point(6, 4);
+            IsOnlyVacantField.Margin = new Padding(3, 4, 3, 4);
             IsOnlyVacantField.Name = "IsOnlyVacantField";
-            IsOnlyVacantField.Size = new Size(151, 19);
+            IsOnlyVacantField.Size = new Size(188, 24);
             IsOnlyVacantField.TabIndex = 0;
             IsOnlyVacantField.Text = "Доступно к заселению";
             IsOnlyVacantField.UseVisualStyleBackColor = true;
@@ -480,19 +500,21 @@
             TabControl.Controls.Add(RoomTab);
             TabControl.Controls.Add(BedroomTab);
             TabControl.Controls.Add(BedTab);
-            TabControl.Location = new Point(5, 93);
+            TabControl.Location = new Point(6, 124);
+            TabControl.Margin = new Padding(3, 4, 3, 4);
             TabControl.Name = "TabControl";
             TabControl.SelectedIndex = 0;
-            TabControl.Size = new Size(702, 440);
+            TabControl.Size = new Size(802, 587);
             TabControl.TabIndex = 38;
             // 
             // RoomTab
             // 
             RoomTab.Controls.Add(RoomGrid);
-            RoomTab.Location = new Point(4, 24);
+            RoomTab.Location = new Point(4, 29);
+            RoomTab.Margin = new Padding(3, 4, 3, 4);
             RoomTab.Name = "RoomTab";
-            RoomTab.Padding = new Padding(3);
-            RoomTab.Size = new Size(694, 412);
+            RoomTab.Padding = new Padding(3, 4, 3, 4);
+            RoomTab.Size = new Size(794, 554);
             RoomTab.TabIndex = 0;
             RoomTab.Text = "Номера";
             RoomTab.UseVisualStyleBackColor = true;
@@ -500,10 +522,11 @@
             // BedroomTab
             // 
             BedroomTab.Controls.Add(BedroomGrid);
-            BedroomTab.Location = new Point(4, 24);
+            BedroomTab.Location = new Point(4, 29);
+            BedroomTab.Margin = new Padding(3, 4, 3, 4);
             BedroomTab.Name = "BedroomTab";
-            BedroomTab.Padding = new Padding(3);
-            BedroomTab.Size = new Size(694, 412);
+            BedroomTab.Padding = new Padding(3, 4, 3, 4);
+            BedroomTab.Size = new Size(794, 554);
             BedroomTab.TabIndex = 1;
             BedroomTab.Text = "Спальни";
             BedroomTab.UseVisualStyleBackColor = true;
@@ -513,10 +536,12 @@
             BedroomGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             BedroomGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             BedroomGrid.Location = new Point(0, 0);
+            BedroomGrid.Margin = new Padding(3, 4, 3, 4);
             BedroomGrid.Name = "BedroomGrid";
             BedroomGrid.ReadOnly = true;
+            BedroomGrid.RowHeadersWidth = 51;
             BedroomGrid.RowTemplate.Height = 25;
-            BedroomGrid.Size = new Size(673, 418);
+            BedroomGrid.Size = new Size(769, 557);
             BedroomGrid.TabIndex = 0;
             BedroomGrid.DataBindingComplete += BedroomGrid_DataBindingComplete;
             BedroomGrid.SelectionChanged += BedroomGrid_SelectionChanged;
@@ -524,9 +549,10 @@
             // BedTab
             // 
             BedTab.Controls.Add(BedGrid);
-            BedTab.Location = new Point(4, 24);
+            BedTab.Location = new Point(4, 29);
+            BedTab.Margin = new Padding(3, 4, 3, 4);
             BedTab.Name = "BedTab";
-            BedTab.Size = new Size(694, 412);
+            BedTab.Size = new Size(794, 554);
             BedTab.TabIndex = 2;
             BedTab.Text = "Спальные места";
             BedTab.UseVisualStyleBackColor = true;
@@ -536,18 +562,21 @@
             BedGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             BedGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             BedGrid.Location = new Point(0, 0);
+            BedGrid.Margin = new Padding(3, 4, 3, 4);
             BedGrid.Name = "BedGrid";
             BedGrid.ReadOnly = true;
+            BedGrid.RowHeadersWidth = 51;
             BedGrid.RowTemplate.Height = 25;
-            BedGrid.Size = new Size(673, 418);
+            BedGrid.Size = new Size(769, 557);
             BedGrid.TabIndex = 0;
             // 
             // CustomersButton
             // 
             CustomersButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            CustomersButton.Location = new Point(713, 202);
+            CustomersButton.Location = new Point(815, 269);
+            CustomersButton.Margin = new Padding(3, 4, 3, 4);
             CustomersButton.Name = "CustomersButton";
-            CustomersButton.Size = new Size(176, 23);
+            CustomersButton.Size = new Size(201, 31);
             CustomersButton.TabIndex = 39;
             CustomersButton.Text = "Гости";
             CustomersButton.UseVisualStyleBackColor = true;
@@ -555,25 +584,28 @@
             // 
             // statusStrip1
             // 
+            statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { CurrentCustomerLabel });
-            statusStrip1.Location = new Point(0, 536);
+            statusStrip1.Location = new Point(0, 718);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(901, 22);
+            statusStrip1.Padding = new Padding(1, 0, 16, 0);
+            statusStrip1.Size = new Size(1030, 26);
             statusStrip1.TabIndex = 40;
             statusStrip1.Text = "statusStrip1";
             // 
             // CurrentCustomerLabel
             // 
             CurrentCustomerLabel.Name = "CurrentCustomerLabel";
-            CurrentCustomerLabel.Size = new Size(152, 17);
+            CurrentCustomerLabel.Size = new Size(191, 20);
             CurrentCustomerLabel.Text = "Текущий гость: не выбран";
             // 
             // EditButton
             // 
             EditButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            EditButton.Location = new Point(713, 231);
+            EditButton.Location = new Point(815, 308);
+            EditButton.Margin = new Padding(3, 4, 3, 4);
             EditButton.Name = "EditButton";
-            EditButton.Size = new Size(176, 23);
+            EditButton.Size = new Size(201, 31);
             EditButton.TabIndex = 41;
             EditButton.Text = "Изменить";
             EditButton.UseVisualStyleBackColor = true;
@@ -582,9 +614,10 @@
             // AddButton
             // 
             AddButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            AddButton.Location = new Point(713, 260);
+            AddButton.Location = new Point(815, 347);
+            AddButton.Margin = new Padding(3, 4, 3, 4);
             AddButton.Name = "AddButton";
-            AddButton.Size = new Size(176, 23);
+            AddButton.Size = new Size(201, 31);
             AddButton.TabIndex = 42;
             AddButton.Text = "Добавить";
             AddButton.UseVisualStyleBackColor = true;
@@ -593,9 +626,10 @@
             // AccomodationButton
             // 
             AccomodationButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            AccomodationButton.Location = new Point(713, 318);
+            AccomodationButton.Location = new Point(815, 424);
+            AccomodationButton.Margin = new Padding(3, 4, 3, 4);
             AccomodationButton.Name = "AccomodationButton";
-            AccomodationButton.Size = new Size(176, 23);
+            AccomodationButton.Size = new Size(201, 31);
             AccomodationButton.TabIndex = 43;
             AccomodationButton.Text = "Заселения";
             AccomodationButton.UseVisualStyleBackColor = true;
@@ -604,9 +638,10 @@
             // RoomAccomodationButton
             // 
             RoomAccomodationButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            RoomAccomodationButton.Location = new Point(713, 347);
+            RoomAccomodationButton.Location = new Point(815, 463);
+            RoomAccomodationButton.Margin = new Padding(3, 4, 3, 4);
             RoomAccomodationButton.Name = "RoomAccomodationButton";
-            RoomAccomodationButton.Size = new Size(176, 23);
+            RoomAccomodationButton.Size = new Size(201, 31);
             RoomAccomodationButton.TabIndex = 44;
             RoomAccomodationButton.Text = "Заселения по комнате";
             RoomAccomodationButton.UseVisualStyleBackColor = true;
@@ -615,9 +650,10 @@
             // SelectDbButton
             // 
             SelectDbButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            SelectDbButton.Location = new Point(713, 376);
+            SelectDbButton.Location = new Point(815, 501);
+            SelectDbButton.Margin = new Padding(3, 4, 3, 4);
             SelectDbButton.Name = "SelectDbButton";
-            SelectDbButton.Size = new Size(176, 23);
+            SelectDbButton.Size = new Size(201, 31);
             SelectDbButton.TabIndex = 45;
             SelectDbButton.Text = "Выбрать файл БД";
             SelectDbButton.UseVisualStyleBackColor = true;
@@ -626,9 +662,10 @@
             // SaveDbButton
             // 
             SaveDbButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            SaveDbButton.Location = new Point(713, 405);
+            SaveDbButton.Location = new Point(815, 540);
+            SaveDbButton.Margin = new Padding(3, 4, 3, 4);
             SaveDbButton.Name = "SaveDbButton";
-            SaveDbButton.Size = new Size(176, 23);
+            SaveDbButton.Size = new Size(201, 31);
             SaveDbButton.TabIndex = 46;
             SaveDbButton.Text = "Экспорт БД";
             SaveDbButton.UseVisualStyleBackColor = true;
@@ -637,9 +674,10 @@
             // ClearDbButton
             // 
             ClearDbButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            ClearDbButton.Location = new Point(713, 434);
+            ClearDbButton.Location = new Point(815, 579);
+            ClearDbButton.Margin = new Padding(3, 4, 3, 4);
             ClearDbButton.Name = "ClearDbButton";
-            ClearDbButton.Size = new Size(176, 23);
+            ClearDbButton.Size = new Size(201, 31);
             ClearDbButton.TabIndex = 47;
             ClearDbButton.Text = "Очистить БД";
             ClearDbButton.UseVisualStyleBackColor = true;
@@ -648,9 +686,10 @@
             // TestBdButton
             // 
             TestBdButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TestBdButton.Location = new Point(713, 463);
+            TestBdButton.Location = new Point(815, 617);
+            TestBdButton.Margin = new Padding(3, 4, 3, 4);
             TestBdButton.Name = "TestBdButton";
-            TestBdButton.Size = new Size(176, 23);
+            TestBdButton.Size = new Size(201, 31);
             TestBdButton.TabIndex = 48;
             TestBdButton.Text = "Тестовая БД";
             TestBdButton.UseVisualStyleBackColor = true;
@@ -659,9 +698,10 @@
             // DeleteButton
             // 
             DeleteButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            DeleteButton.Location = new Point(713, 289);
+            DeleteButton.Location = new Point(815, 385);
+            DeleteButton.Margin = new Padding(3, 4, 3, 4);
             DeleteButton.Name = "DeleteButton";
-            DeleteButton.Size = new Size(176, 23);
+            DeleteButton.Size = new Size(201, 31);
             DeleteButton.TabIndex = 49;
             DeleteButton.Text = "Удалить";
             DeleteButton.UseVisualStyleBackColor = true;
@@ -669,9 +709,9 @@
             // 
             // RoomForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(901, 558);
+            ClientSize = new Size(1030, 744);
             Controls.Add(DeleteButton);
             Controls.Add(TestBdButton);
             Controls.Add(ClearDbButton);
@@ -693,6 +733,7 @@
             Controls.Add(label4);
             Controls.Add(MinCapacityField);
             Controls.Add(MaxCapacityField);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "RoomForm";
             Text = "Номера";
             Load += RoomForm_Load;
