@@ -533,7 +533,7 @@
             // 
             // BedroomGrid
             // 
-            BedroomGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            BedroomGrid.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             BedroomGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             BedroomGrid.Location = new Point(0, 0);
             BedroomGrid.Margin = new Padding(3, 4, 3, 4);
@@ -541,7 +541,7 @@
             BedroomGrid.ReadOnly = true;
             BedroomGrid.RowHeadersWidth = 51;
             BedroomGrid.RowTemplate.Height = 25;
-            BedroomGrid.Size = new Size(769, 557);
+            BedroomGrid.Size = new Size(788, 558);
             BedroomGrid.TabIndex = 0;
             BedroomGrid.DataBindingComplete += BedroomGrid_DataBindingComplete;
             BedroomGrid.SelectionChanged += BedroomGrid_SelectionChanged;
@@ -559,7 +559,7 @@
             // 
             // BedGrid
             // 
-            BedGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            BedGrid.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             BedGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             BedGrid.Location = new Point(0, 0);
             BedGrid.Margin = new Padding(3, 4, 3, 4);
